@@ -43,7 +43,7 @@ public class RegisterPatient extends AppCompatActivity {
 
     Spinner spinner;
 
-
+//here u go
     static final int DATE_DIALOG_ID = 999;
     private ArrayList<String> arrayList;
     private ArrayAdapter<String> adapter;

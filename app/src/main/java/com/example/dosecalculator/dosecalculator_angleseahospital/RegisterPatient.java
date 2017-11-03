@@ -17,12 +17,17 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+//import com.example.dosecalculator.dosecalculator_angleseahospital.database.MyDBHandler;
+
+import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 // hello this is a change
 
 public class RegisterPatient extends AppCompatActivity {
 
+    Database mydb;
     private TextView tvDisplayDate;
     private DatePicker dpResult;
     private Button btnChangeDate;
@@ -49,7 +54,8 @@ public class RegisterPatient extends AppCompatActivity {
 
         setCurrentDateOnView();
         addListenerOnButton();
-
+           mydb=new Database(this);
+//        mydb.getWritableDatabase();
 
     }
 
@@ -66,7 +72,7 @@ public class RegisterPatient extends AppCompatActivity {
         switch (id) {
             case R.id.action_add_room:
                 //get the categories cursor for the
-                Intent intent = new Intent(RegisterPatient.this, AddRoomActivity.class);
+                Intent intent = new Intent(RegisterPatient.this, ManageRoomsActivity.class);
                 startActivity(intent);
                 break;
         }

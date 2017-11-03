@@ -8,22 +8,31 @@ import android.content.ContentValues;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION=1;
+    /*private static final int DATABASE_VERSION=1;
     private static final String DATABASE_NAME="drugcalculator.db";
     public static final String TABLE_ROOMS="rooms";
     private static final String COLUMN_ID="_id";
     private static final String COLUMN_ROOM_NAME="roomname";
     private static final String COLUMN_ROOM_DETAILS="roomdetails";
     private static final String COLUMN_ROOM_STATUS="active";
-    private static final String COLUMN_ROOM_TYPE="day";
+    private static final String COLUMN_ROOM_TYPE="day";*/
 
-    public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+    public static final String DATABASE_NAME = "Note.db";
+    public static final String table_name = "Note_Table";
+    public static final String col_1 = "ID";
+    public static final String col_2 = "DATE";
+    public static final String col_3 = "TIME";
+    public static final String col_4 = "NAME";
+
+
+    public MyDBHandler(Context context) {
+        super(context, DATABASE_NAME, null, 1);
+        //SQLiteDatabase db=this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query="CREATE TABLE "+ TABLE_ROOMS + "(" +
+       /* String query="CREATE TABLE "+ TABLE_ROOMS + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
                 COLUMN_ROOM_NAME + " TEXT " +
                 COLUMN_ROOM_DETAILS + " TEXT " +
@@ -31,16 +40,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 COLUMN_ROOM_TYPE + " TEXT " +
                 ");";
         //build the query
-        db.execSQL(query);
+        db.execSQL(query);*/
+
+        db.execSQL("create table " + table_name +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TIME TEXT, DATE TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
+       // db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
         onCreate(db);
     }
 
-    //Add a new row to the database
+    /*//Add a new row to the database
     public void addRoom(Rooms rm){
         ContentValues values=new ContentValues();
         values.put(COLUMN_ROOM_NAME, rm.getRm_name());
@@ -77,6 +88,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
-    }
+    }*/
 
 }

@@ -22,7 +22,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ManageRoomsActivity" />
         <activity android:name=".DrugDetails"></activity>
-        <activity android:name=".RoomsActivity"></activity>
+        <activity android:name=".AddRoomsActivity"></activity>
+        <activity android:name=".UpdateRoomActivity"></activity>
+        <activity android:name=".DeleteRoomActivity"></activity>
     </application>
 
 </manifest>

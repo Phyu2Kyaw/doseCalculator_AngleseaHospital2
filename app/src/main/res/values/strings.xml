@@ -6,7 +6,7 @@
     <string name="insert_new_category">Insert New Category</string>
     <string name="action_delete_todo">Delete</string>
     <string name="action_settings">Setting</string>
-    <string name="action_add_room">Add Room</string>
+    <string name="action_add_room">Manage Rooms</string>
     <string name="delete_categories_dialog">Do you really want to delete the category?</string>
     <string name="delete_categories_dialog_title">Confirm</string>
     <string name="delete_todo_dialog_title">confirm</string>

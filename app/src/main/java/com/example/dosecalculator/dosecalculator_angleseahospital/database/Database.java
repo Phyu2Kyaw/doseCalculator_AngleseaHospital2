@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
+
 //import com.example.dosecalculator.dosecalculator_angleseahospital.database.Rooms.RoomsEntry;
 
 /**
@@ -21,6 +23,15 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_ROOM_DETAILS="Details";
     public static final String COLUMN_ROOM_STATUS="Status";
     public static final String COLUMN_ROOM_TYPE="Type";
+
+    public static final String TABLE_DRUGS = " drugs ";
+    public static final String drug_ID = " _dId ";
+    public static final String drug_Name = " Drug_Name ";
+    public static final String drug_Weight = " Drug_Weight ";    // mg
+    public static final String drug_Volume = " Drug_Volume ";    // mL
+    public static final String max_Dosage = " Max_Dosage ";
+    public static final String calc_Method = " Calc_Method ";    // calculation method - adult or pediatrics
+    public static final String type_Patient = " Type_Patient ";  // type of patient
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,6 +63,7 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        /** Create TABLE_ROOMS */
         db.execSQL("CREATE TABLE "+ TABLE_ROOMS + "(" +
                 COLUMN_Room_ID + " TEXT PRIMARY KEY ," +
                 COLUMN_ROOM_DETAILS + " TEXT ," +
@@ -59,14 +71,21 @@ public class Database extends SQLiteOpenHelper {
                 ");");
         //db.execSQL("create table " + table_ +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TIME TEXT, DATE TEXT)");
 
+        /** Create TABLE_DRUGS */
+        db.execSQL(" Create table if not exists " + TABLE_DRUGS + " ( " + drug_ID +
+                " Integer Primary Key Autoincrement, " + drug_Name + " text, " + drug_Weight +
+                " text, " + drug_Volume + " text, " + max_Dosage + " text, " + calc_Method + " text, " +
+                type_Patient + " text ) " );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOMS);
+        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_DRUGS);
         onCreate(db);
     }
 
+    /** TABLE_ROOMS Details */
     public boolean insertRoom(String roomId, String roomDetails, String status){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -112,6 +131,20 @@ public class Database extends SQLiteOpenHelper {
         return roomCursors;
     }
 
+    /** TABLE_DRUGS Details */
 
+    public void addDrugs(Drugs drug) {
+        SQLiteDatabase db= this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(drug_ID, drug.getDrugId());
+        values.put(drug_Name, drug.getDrugName());
+        values.put(drug_Weight, drug.getDrugWeight());
+        values.put(drug_Volume, drug.getDrugVolume());
+        values.put(max_Dosage, drug.getMaxDosage());
+        values.put(calc_Method, drug.getCalcMethod());
+        values.put(type_Patient, drug.getTypePatient());
+
+        db.insert(TABLE_DRUGS, null, values);
+    }
 
 }

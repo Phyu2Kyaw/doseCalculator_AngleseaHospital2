@@ -3,17 +3,13 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,7 +17,7 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.database.Datab
 
 import java.util.ArrayList;
 
-public class ManageRoomsActivity extends AppCompatActivity {
+public class ManageDrugsActivity extends AppCompatActivity {
 
 
     ListView lv_room;
@@ -83,7 +79,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         myCursor= db.getRoomData();
 
         if(myCursor.getCount()==0){
-            Toast.makeText(ManageRoomsActivity.this, "No Data", Toast.LENGTH_LONG).show();
+            Toast.makeText(ManageDrugsActivity.this, "No Data", Toast.LENGTH_LONG).show();
         }
         else{
 
@@ -104,7 +100,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Intent intent = new Intent(ManageRoomsActivity.this,UpdateRoomActivity.class);
+                Intent intent = new Intent(ManageDrugsActivity.this,UpdateRoomActivity.class);
 
                 Bundle extras = new Bundle();
                 extras.putString("CarryRoomId", carryRoomId);
@@ -120,7 +116,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                new AlertDialog.Builder(ManageRoomsActivity.this)
+                new AlertDialog.Builder(ManageDrugsActivity.this)
                         .setTitle(getString(R.string.delete_rooms_dialog_title))
                         .setMessage(getString(R.string.delete_rooms_dialog))
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -130,11 +126,11 @@ public class ManageRoomsActivity extends AppCompatActivity {
 
                                 boolean isDeleted=db.deleteRoom(roomId.getText().toString());
                                 if(isDeleted==true){
-                                    Toast.makeText(ManageRoomsActivity.this, "Data deleted", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ManageDrugsActivity.this, "Data deleted", Toast.LENGTH_LONG).show();
                                 finish();
                                 startActivity(getIntent());}
                                 else
-                                    Toast.makeText(ManageRoomsActivity.this, "Room Details deleted", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ManageDrugsActivity.this, "Room Details deleted", Toast.LENGTH_LONG).show();
 
                                }})
                         .setNegativeButton(android.R.string.no, null).show();
@@ -149,7 +145,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Intent intent = new Intent(ManageRoomsActivity.this,AddRoomsActivity.class);
+                Intent intent = new Intent(ManageDrugsActivity.this,AddRoomsActivity.class);
                 startActivity(intent);
             }
         });

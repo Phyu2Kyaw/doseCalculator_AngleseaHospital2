@@ -72,8 +72,23 @@ public class RegisterPatient extends AppCompatActivity {
         switch (id) {
             case R.id.action_add_room:
                 //get the categories cursor for the
-                Intent intent = new Intent(RegisterPatient.this, ManageRoomsActivity.class);
-                startActivity(intent);
+                Intent room = new Intent(RegisterPatient.this, ManageRoomsActivity.class);
+                startActivity(room);
+                break;
+            case R.id.action_patients:
+                //get the categories cursor for the
+                Intent patients = new Intent(RegisterPatient.this, ManagePatientsActivity.class);
+                startActivity(patients);
+                break;
+            case R.id.action_nurse:
+                //get the categories cursor for the
+                Intent nurses = new Intent(RegisterPatient.this, ManageNursesActivity.class);
+                startActivity(nurses);
+                break;
+            case R.id.action_drug:
+                //get the categories cursor for the
+                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+                startActivity(drugs);
                 break;
         }
         return super.onOptionsItemSelected(item);

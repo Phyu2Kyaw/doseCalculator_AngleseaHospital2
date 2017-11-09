@@ -1,7 +1,9 @@
 package com.example.dosecalculator.dosecalculator_angleseahospital;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,7 @@ public class AddRoomsActivity extends AppCompatActivity implements AdapterView.O
 
         db=new Database(this);
         roomId=(EditText)findViewById(R.id.txt_rm_Id);
+        roomId.setGravity(Gravity.TOP);
         roomDetails=(EditText)findViewById(R.id.txt_rm_details);
         status = (Spinner) findViewById(R.id.spn_status);
         myButton=(Button)findViewById(R.id.btn_add_room);
@@ -71,6 +74,8 @@ public class AddRoomsActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(AddRoomsActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 else
                     Toast.makeText(AddRoomsActivity.this, "Room Details inserted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AddRoomsActivity.this,ManageRoomsActivity.class);
+                startActivity(intent);
             }
         });
     }

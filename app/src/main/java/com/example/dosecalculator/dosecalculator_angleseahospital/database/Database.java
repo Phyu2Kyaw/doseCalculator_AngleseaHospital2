@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
+
 //import com.example.dosecalculator.dosecalculator_angleseahospital.database.Rooms.RoomsEntry;
 
 /**
@@ -34,12 +36,14 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_nurse_EMPLOYMENT_ID="Nurse_id";
     public static final String COLUMN_nurse_STATUS="Status";
 
-    public static final String TABLE_DRUG="drug";
-    public static final String COLUMN_Drug_ID="_id";
-    public static final String COLUMN_DRUG_NAME="Name";
-    public static final String COLUMN_DRUG_MG="Mg";
-    public static final String COLUMN_DRUG_ML="Ml";
-    public static final String COLUMN_DRUG_STATUS="Status";
+    public static final String TABLE_DRUGS = " drugs ";
+    public static final String drug_ID = " _dId ";
+    public static final String drug_Name = " Drug_Name ";
+    public static final String drug_Weight = " Drug_Weight ";    // mg
+    public static final String drug_Volume = " Drug_Volume ";    // mL
+    public static final String max_Dosage = " Max_Dosage ";
+    public static final String calc_Method = " Calc_Method ";    // calculation method - adult or pediatrics
+    public static final String type_Patient = " Type_Patient ";  // type of patient
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -78,7 +82,7 @@ public class Database extends SQLiteOpenHelper {
                 ");");
         //db.execSQL("create table " + table_ +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TIME TEXT, DATE TEXT)");
 
-        /*db.execSQL("CREATE TABLE "+ TABLE_PATIENT + "(" +
+        db.execSQL("CREATE TABLE "+ TABLE_PATIENT + "(" +
                 COLUMN_patient_ID + " TEXT PRIMARY KEY ," +
                 COLUMN_patient_NAME + " TEXT ," +
                 COLUMN_patient_DOB + " TEXT ," +
@@ -93,21 +97,20 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_nurse_STATUS + " TEXT " +
                 ");");
 
-        db.execSQL("CREATE TABLE "+ TABLE_DRUG + "(" +
-                COLUMN_Drug_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                COLUMN_DRUG_NAME + " TEXT ," +
-                COLUMN_DRUG_MG + " INTEGER ," +
-                COLUMN_DRUG_ML + " INTEGER ," +
-                COLUMN_DRUG_STATUS + " TEXT " +
-                ");");*/
+        /** Create TABLE_DRUGS */
+               db.execSQL(" Create table if not exists " + TABLE_DRUGS + " ( " + drug_ID +
+                              " Integer Primary Key Autoincrement, " + drug_Name + " text, " + drug_Weight +
+                                " text, " + drug_Volume + " text, " + max_Dosage + " text, " + calc_Method + " text, " +
+                               type_Patient + " text ) " );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOM);
-      /*  db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NURSE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRUG);*/
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRUG);
+        db.execSQL(" DROP TABLE IF EXISTS " + TABLE_DRUGS);
         onCreate(db);
     }
 
@@ -159,14 +162,16 @@ public class Database extends SQLiteOpenHelper {
 
 
     //Patient
-    public boolean insertPatient(String roomId, String roomDetails, String status){
+    public boolean insertPatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+        values.put(COLUMN_patient_ID,patient_ID);
+        values.put(COLUMN_patient_NAME,patient_NAME);
+        values.put(COLUMN_patient_DOB,patient_DOB);
+        values.put(COLUMN_patient_WEIGHT,patient_WEIGHT);
+        values.put(COLUMN_patient_STATUS,patient_STATUS);
 
-        long result = db.insert(TABLE_ROOM, null, values);
+        long result = db.insert(TABLE_PATIENT, null, values);
         if (result == -1)
             return  false;
         else
@@ -174,14 +179,16 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean updatePatient(String roomId, String roomDetails, String status){
+    public boolean updatePatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+        values.put(COLUMN_patient_ID,patient_ID);
+        values.put(COLUMN_patient_NAME,patient_NAME);
+        values.put(COLUMN_patient_DOB,patient_DOB);
+        values.put(COLUMN_patient_WEIGHT,patient_WEIGHT);
+        values.put(COLUMN_patient_STATUS,patient_STATUS);
 
-        long result = db.update(TABLE_ROOM, values,"_id = ?",new String[] { roomId });
+        long result = db.update(TABLE_PATIENT, values,"NHI_id = ?",new String[] { patient_ID });
         if (result == -1)
             return  false;
         else
@@ -189,9 +196,9 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean deletePatient(String roomId){
+    public boolean deletePatient(String patient_ID){
         SQLiteDatabase db= this.getWritableDatabase();
-        long result = db.delete(TABLE_ROOM, "_id = ?",new String[] { roomId });
+        long result = db.delete(TABLE_PATIENT, "NHI_id = ?",new String[] { patient_ID });
         if (result == -1)
             return  false;
         else
@@ -200,19 +207,20 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getPatientData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor roomCursors = db.rawQuery("select * from "+TABLE_ROOM,null);
-        return roomCursors;
+        Cursor patientCursors = db.rawQuery("select * from "+TABLE_PATIENT,null);
+        return patientCursors;
     }
 
     //Nurse
-    public boolean insertNurse(String roomId, String roomDetails, String status){
+    public boolean insertNurse(Integer nurse_ID, String nurse_NAME, String nurse_EMPLOYMENT_ID, String nurse_STATUS ){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+        values.put(COLUMN_nurse_ID,nurse_ID);
+        values.put(COLUMN_nurse_NAME,nurse_NAME);
+        values.put(COLUMN_nurse_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
+        values.put(COLUMN_nurse_STATUS,nurse_STATUS);
 
-        long result = db.insert(TABLE_ROOM, null, values);
+        long result = db.insert(TABLE_NURSE, null, values);
         if (result == -1)
             return  false;
         else
@@ -220,21 +228,22 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean updateNurse(String roomId, String roomDetails, String status){
+  /*  public boolean updateNurse(Integer nurse_ID, String nurse_NAME, String nurse_EMPLOYMENT_ID, String nurse_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+        values.put(COLUMN_nurse_ID,nurse_ID);
+        values.put(COLUMN_nurse_NAME,nurse_NAME);
+        values.put(COLUMN_nurse_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
+        values.put(COLUMN_nurse_STATUS,nurse_STATUS);
 
-        long result = db.update(TABLE_ROOM, values,"_id = ?",new String[] { roomId });
+        long result = db.update(TABLE_NURSE, values,"_id = ?",new int [] { nurse_ID });
         if (result == -1)
             return  false;
         else
             return true ;
 
     }
-
+*/
     public boolean deleteNurse(String roomId){
         SQLiteDatabase db= this.getWritableDatabase();
         long result = db.delete(TABLE_ROOM, "_id = ?",new String[] { roomId });
@@ -251,22 +260,22 @@ public class Database extends SQLiteOpenHelper {
     }
 
     //Drug
-    public boolean insertDrug(String roomId, String roomDetails, String status){
-        SQLiteDatabase db= this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+    /** TABLE_DRUGS Details */
 
-        long result = db.insert(TABLE_ROOM, null, values);
-        if (result == -1)
-            return  false;
-        else
-            return true ;
+     public void addDrugs(Drugs drug) {
+                SQLiteDatabase db= this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(drug_ID, drug.getDrugId());
+                values.put(drug_Name, drug.getDrugName());
+                values.put(drug_Weight, drug.getDrugWeight());
+                values.put(drug_Volume, drug.getDrugVolume());
+                values.put(max_Dosage, drug.getMaxDosage());
+                values.put(calc_Method, drug.getCalcMethod());
+                values.put(type_Patient, drug.getTypePatient());
+                db.insert(TABLE_DRUGS, null, values);
+            }
 
-    }
-
-    public boolean updateDrug(String roomId, String roomDetails, String status){
+    /*public boolean updateDrug(String roomId, String roomDetails, String status){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(COLUMN_Room_ID,roomId);
@@ -294,7 +303,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor roomCursors = db.rawQuery("select * from "+TABLE_ROOM,null);
         return roomCursors;
-    }
+    }*/
 
 
 

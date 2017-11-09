@@ -48,18 +48,7 @@ public class Database extends SQLiteOpenHelper {
             ");";*/
 
 
- /*   @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+ TABLE_ROOMS + "(" +
-                COLUMN_Room_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                COLUMN_ROOM_NAME+ " TEXT ," +
-                COLUMN_ROOM_DETAILS + " TEXT ," +
-                COLUMN_ROOM_TYPE + " TEXT ," +
-                COLUMN_ROOM_STATUS + " TEXT " +
-                ");");
-        //db.execSQL("create table " + table_ +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TIME TEXT, DATE TEXT)");
 
-    }*/
 
     @Override
     public void onCreate(SQLiteDatabase db) {

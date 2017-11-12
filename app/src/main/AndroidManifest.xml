@@ -21,12 +21,12 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".ManageRoomsActivity" />
-        <activity android:name=".ManageDrugsActivity" />
         <activity android:name=".ManageNursesActivity" />
-        <activity android:name=".ManagePatientsActivity" />
-        <activity android:name=".DrugDetails"></activity>
-        <activity android:name=".AddRoomsActivity"></activity>
-        <activity android:name=".UpdateRoomActivity"></activity>
+        <activity android:name=".DrugDetails" />
+        <activity android:name=".AddRoomsActivity" />
+        <activity android:name=".AddNursesActivity" />
+        <activity android:name=".UpdateRoomActivity" />
+        <activity android:name=".UpdateNurseActivity"></activity>
     </application>
 
 </manifest>

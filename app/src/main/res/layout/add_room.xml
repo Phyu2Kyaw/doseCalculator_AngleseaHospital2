@@ -16,10 +16,10 @@
         android:text="Status"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_rm_details" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_room_details" />
 
     <TextView
-        android:id="@+id/lblDetails"
+        android:id="@+id/lbl_employment_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -28,10 +28,10 @@
         android:text="Details"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_rm_Id" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_room_name" />
 
     <TextView
-        android:id="@+id/lblRmName"
+        android:id="@+id/lbl_nurse_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txt_rm_Id"
+        android:id="@+id/txt_room_name"
         android:layout_width="352dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
@@ -53,12 +53,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblRmName"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_nurse_name"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
-        android:id="@+id/txt_rm_details"
+        android:id="@+id/txt_room_details"
         android:layout_width="352dp"
         android:layout_height="40dp"
         android:ems="10"
@@ -66,7 +66,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/lblDetails"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_employment_id"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"

@@ -13,88 +13,84 @@ import android.widget.Toast;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
-public class UpdateRoomActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    EditText roomId;
-    EditText roomDetails;
-    public String myStatusSelection;
-    public String myRoomType;
-    Button myButton;
-    Database db;
+public class UpdateNurseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    EditText nurseName;
+    EditText nurseId;
+    Button btnUpdate;
     Spinner status;
-    String myRoomId;
-    String myRoomDetails;
+
+    String myNurseName;
+    String myNurseId;
+    public String myStatusSelection;
+
+    Database db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_room);
+        setContentView(R.layout.activity_update_nurse);
 
         db=new Database(this);
-        roomId=(EditText)findViewById(R.id.txt_room_name);
-        roomDetails=(EditText)findViewById(R.id.txt_room_details);
+        nurseName=(EditText)findViewById(R.id.txt_nurse_name_upd);
+        nurseId=(EditText)findViewById(R.id.txt_nurse_id_upd);
+
         //to get passed string value
         Bundle extras = getIntent().getExtras();
-        myRoomId = extras.getString("CarryRoomId");
-        myRoomDetails = extras.getString("carryRoomDetails");
-        roomId.setText(myRoomId);
-        roomDetails.setText(myRoomDetails);
+        myNurseId = extras.getString("carryNurseId");
+        myNurseName = extras.getString("carryNurseName");
+        nurseId.setText(myNurseId);
+        nurseName.setText(myNurseName);
 
         status = (Spinner) findViewById(R.id.spn_status);
-        myButton=(Button)findViewById(R.id.btn_update_room);
+        btnUpdate=(Button)findViewById(R.id.btn_nurse_update);
 
-        updateButtonClicked();
+
+        updateButtonClickedNurse();
         spinner();
     }
 
+
     private void spinner() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
-                R.array.room_categories, android.R.layout.simple_spinner_item);
+                R.array.nurse_status, android.R.layout.simple_spinner_item);
 
         ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
-                R.array.room_status, android.R.layout.simple_spinner_item);
+                R.array.nurse_status, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         status.setAdapter(StatusAdapter);
         status.setOnItemSelectedListener(this);
-
-
         myStatusSelection=String.valueOf(status.getSelectedItem());
     }
 
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         myStatusSelection=parent.getItemAtPosition(pos).toString();
-        // myStatusSelection=parent.getItemAtPosition(pos).toString();
-        //Rooms add_room=new Rooms();
         Toast.makeText(parent.getContext(),
                 "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
 
-    public void updateButtonClicked(){
-        myButton.setOnClickListener(new View.OnClickListener(){
+    private void updateButtonClickedNurse() {
+        btnUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                boolean isInserted=db.updateRoom(roomId.getText().toString(), roomDetails.getText().toString(),myStatusSelection );
+                boolean isInserted=db.updateNurse(nurseId.getText().toString(),nurseName.getText().toString(), myStatusSelection );
                 if(isInserted==true)
-                    Toast.makeText(UpdateRoomActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateNurseActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(UpdateRoomActivity.this, "Room Details inserted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(UpdateRoomActivity.this,ManageRoomsActivity.class);
+                    Toast.makeText(UpdateNurseActivity.this, "Nurse Details inserted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(UpdateNurseActivity.this,ManageNursesActivity.class);
                 startActivity(intent);
             }
         });
+
     }
-
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
-
-
 }

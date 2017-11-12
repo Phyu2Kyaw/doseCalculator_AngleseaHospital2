@@ -9,11 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +27,8 @@ public class ManageRoomsActivity extends AppCompatActivity {
     ListView my_lv;
     Room room;
     public String carryRoomId;
+    public String carryRoomDetails;
+    public String carryRoomStatus;
     EditText roomId;
 
     FloatingActionButton add;
@@ -47,7 +45,7 @@ public class ManageRoomsActivity extends AppCompatActivity {
         db=new Database(this);
 
 
-        add=(FloatingActionButton) findViewById(R.id.icon_add);
+        add=(FloatingActionButton) findViewById(R.id.icon_room_add);
         update=(FloatingActionButton) findViewById(R.id.icon_update);
         delete=(FloatingActionButton) findViewById(R.id.icon_delete);
         lv_room=(ListView) findViewById(R.id.lst_view_room);
@@ -66,11 +64,14 @@ public class ManageRoomsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                roomId=(EditText)findViewById(R.id.txt_rm_Id);
+                //roomId=(EditText)findViewById(R.id.txt_nurse_name);
                 room =RoomList.get(position);
-                roomId=(EditText)findViewById(R.id.txt_rm_Id);
+                roomId=(EditText)findViewById(R.id.txt_room_name);
                 roomId.setText((room.getRoomId()));
                 carryRoomId=room.getRoomId();
+                carryRoomDetails=room.getDetails();
+                carryRoomStatus=room.getStatus();
+
             }}
             );
 
@@ -108,6 +109,8 @@ public class ManageRoomsActivity extends AppCompatActivity {
 
                 Bundle extras = new Bundle();
                 extras.putString("CarryRoomId", carryRoomId);
+                extras.putString("carryRoomDetails", carryRoomDetails);
+                extras.putString("carryRoomStatus", carryRoomStatus);
                 intent.putExtras(extras);
 
                 startActivity(intent);

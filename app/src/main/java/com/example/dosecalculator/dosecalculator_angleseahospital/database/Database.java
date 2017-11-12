@@ -15,7 +15,7 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "phyu11.db";
+    public static final String DATABASE_NAME = "anglesea_hospital03.db";
     private static final int DATABASE_VERSION=1;
 
     public static final String TABLE_ROOM="room";
@@ -31,10 +31,10 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_patient_STATUS="Status";
 
     public static final String TABLE_NURSE="nurse";
-    public static final String COLUMN_nurse_ID="_id";
-    public static final String COLUMN_nurse_NAME="Name";
-    public static final String COLUMN_nurse_EMPLOYMENT_ID="Nurse_id";
-    public static final String COLUMN_nurse_STATUS="Status";
+    //public static final String COLUMN_nurse_ID="_id";
+    public static final String COLUMN_NURSE_NAME="Name";
+    public static final String COLUMN_NURSE_EMPLOYMENT_ID="Nurse_id";
+    public static final String COLUMN_NURSE_STATUS="Status";
 
     public static final String TABLE_DRUGS = " drugs ";
     public static final String drug_ID = " _dId ";
@@ -91,10 +91,10 @@ public class Database extends SQLiteOpenHelper {
                 ");");
 
         db.execSQL("CREATE TABLE "+ TABLE_NURSE + "(" +
-                COLUMN_nurse_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                COLUMN_nurse_NAME + " TEXT ," +
-                COLUMN_nurse_EMPLOYMENT_ID + " TEXT ," +
-                COLUMN_nurse_STATUS + " TEXT " +
+                //COLUMN_nurse_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                COLUMN_NURSE_EMPLOYMENT_ID + " TEXT PRIMARY KEY ," +
+                COLUMN_NURSE_NAME + " TEXT ," +
+                COLUMN_NURSE_STATUS + " TEXT " +
                 ");");
 
         /** Create TABLE_DRUGS */
@@ -212,41 +212,42 @@ public class Database extends SQLiteOpenHelper {
     }
 
     //Nurse
-    public boolean insertNurse(Integer nurse_ID, String nurse_NAME, String nurse_EMPLOYMENT_ID, String nurse_STATUS ){
+    public boolean insertNurse(String nurse_EMPLOYMENT_ID,String nurse_NAME,  String nurse_STATUS ){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_nurse_ID,nurse_ID);
-        values.put(COLUMN_nurse_NAME,nurse_NAME);
-        values.put(COLUMN_nurse_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
-        values.put(COLUMN_nurse_STATUS,nurse_STATUS);
+        values.put(COLUMN_NURSE_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
+       values.put(COLUMN_NURSE_NAME,nurse_NAME);
+        values.put(COLUMN_NURSE_STATUS,nurse_STATUS);
 
         long result = db.insert(TABLE_NURSE, null, values);
         if (result == -1)
             return  false;
         else
             return true ;
-
     }
 
-  /*  public boolean updateNurse(Integer nurse_ID, String nurse_NAME, String nurse_EMPLOYMENT_ID, String nurse_STATUS){
+    public boolean updateNurse( String nurse_EMPLOYMENT_ID,String nurse_NAME,  String nurse_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put(COLUMN_nurse_ID,nurse_ID);
-        values.put(COLUMN_nurse_NAME,nurse_NAME);
-        values.put(COLUMN_nurse_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
-        values.put(COLUMN_nurse_STATUS,nurse_STATUS);
+        values.put(COLUMN_NURSE_EMPLOYMENT_ID,nurse_EMPLOYMENT_ID);
+       values.put(COLUMN_NURSE_NAME,nurse_NAME);
+        values.put(COLUMN_NURSE_STATUS,nurse_STATUS);
 
-        long result = db.update(TABLE_NURSE, values,"_id = ?",new int [] { nurse_ID });
+       // String [] args = new String[nurse_NAME];
+
+       long result = db.update(TABLE_NURSE, values,"Nurse_id=?", new String[] { nurse_EMPLOYMENT_ID });
+        //long result = db.update(TABLE_NURSE, values,"_id = ?",new String[] { roomId });
+
         if (result == -1)
             return  false;
         else
             return true ;
 
     }
-*/
-    public boolean deleteNurse(String roomId){
+
+    public boolean deleteNurse(String nurseEid){
         SQLiteDatabase db= this.getWritableDatabase();
-        long result = db.delete(TABLE_ROOM, "_id = ?",new String[] { roomId });
+        long result = db.delete(TABLE_NURSE, "Nurse_id = ?",new String[] { nurseEid });
         if (result == -1)
             return  false;
         else
@@ -255,7 +256,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getNurseData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor roomCursors = db.rawQuery("select * from "+TABLE_ROOM,null);
+        Cursor roomCursors = db.rawQuery("select * from "+TABLE_NURSE,null);
         return roomCursors;
     }
 

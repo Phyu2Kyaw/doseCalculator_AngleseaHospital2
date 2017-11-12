@@ -14,11 +14,10 @@ import android.widget.Toast;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
-public class AddRoomsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    EditText roomId;
+public class AddNursesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    EditText nurseName;
     public String myStatusSelection;
-    public String myRoomType;
-    EditText roomDetails;
+    EditText empId;
     Button myButton;
     Database db;
     Spinner status;
@@ -26,24 +25,24 @@ public class AddRoomsActivity extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_room);
+        setContentView(R.layout.add_nurse);
 
         db=new Database(this);
-        roomId=(EditText)findViewById(R.id.txt_room_name);
-        roomId.setGravity(Gravity.TOP);
-        roomDetails=(EditText)findViewById(R.id.txt_room_details);
+        nurseName=(EditText)findViewById(R.id.txt_nurse_name);
+        nurseName.setGravity(Gravity.TOP);
+        empId=(EditText)findViewById(R.id.txt_nurse_id);
         status = (Spinner) findViewById(R.id.spn_status);
-        myButton=(Button)findViewById(R.id.btn_add_room);
-
-        addButtonClicked();
+        myButton=(Button)findViewById(R.id.btn_add_nurse);
         spinner();
+        addButtonClicked();
+
     }
 
     private void spinner() {
         // Create an ArrayAdapter using the string array and a default spinner layout
 
         ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
-                R.array.room_status, android.R.layout.simple_spinner_item);
+                R.array.nurse_status, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -69,12 +68,12 @@ public class AddRoomsActivity extends AppCompatActivity implements AdapterView.O
         myButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                boolean isInserted=db.insertRoom(roomId.getText().toString(), roomDetails.getText().toString(),myStatusSelection );
+                boolean isInserted=db.insertNurse(empId.getText().toString(),nurseName.getText().toString(), myStatusSelection );
                 if(isInserted==true)
-                    Toast.makeText(AddRoomsActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddNursesActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(AddRoomsActivity.this, "Room Details inserted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AddRoomsActivity.this,ManageRoomsActivity.class);
+                    Toast.makeText(AddNursesActivity.this, "Nurse Details inserted", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AddNursesActivity.this,ManageNursesActivity.class);
                 startActivity(intent);
             }
         });

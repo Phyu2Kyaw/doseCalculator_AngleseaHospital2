@@ -20,14 +20,18 @@ import java.util.ArrayList;
 public class ManageNursesActivity extends AppCompatActivity {
 
 
-    ListView lv_room;
+    ListView lv_nurse;
     Database db;
     Cursor myCursor;
-    ArrayList<Room> RoomList;
+    ArrayList<Nurse> NurseList;
     ListView my_lv;
-    Room room;
-    public String carryRoomId;
-    EditText roomId;
+    Nurse nurse;
+    public String carryNurseName;
+    public String carryNurseId;
+    EditText nurseName;
+    String nurseId;
+    EditText status;
+
 
     FloatingActionButton add;
     FloatingActionButton update;
@@ -38,45 +42,44 @@ public class ManageNursesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_room);
+        setContentView(R.layout.activity_manage_nurses);
 
-        db=new Database(this);
+       db=new Database(this);
 
 
-        add=(FloatingActionButton) findViewById(R.id.icon_add);
+        add=(FloatingActionButton) findViewById(R.id.icon_nurse_add);
         update=(FloatingActionButton) findViewById(R.id.icon_update);
         delete=(FloatingActionButton) findViewById(R.id.icon_delete);
-        lv_room=(ListView) findViewById(R.id.lst_view_room);
+        lv_nurse=(ListView) findViewById(R.id.lst_view_nurse);
 
-
-
+       //txtSearch=(EditText)findViewById(R.id.txt_nurse_name);
 
 
         addBtnClicked();
-       updateBtnClicked();
+      updateBtnClicked();
         deleteBtnClicked();
-       displayRooms();
+      displayNurse();
 
-        lv_room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_nurse.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                roomId=(EditText)findViewById(R.id.txt_rm_Id);
-                room =RoomList.get(position);
-                roomId=(EditText)findViewById(R.id.txt_rm_Id);
-                roomId.setText((room.getRoomId()));
-                carryRoomId=room.getRoomId();
+                nurse =NurseList.get(position);
+                nurseName=(EditText)findViewById(R.id.txt_nurse_name);
+
+                nurseName.setText((nurse.getNurseName()));
+                nurseId=nurse.geteId();
+                carryNurseId=nurse.geteId();
+                carryNurseName=nurse.getNurseName();
             }}
             );
-
-
     }
 
-    private void displayRooms() {
+    private void displayNurse() {
 
-        RoomList=new ArrayList<>();
-        myCursor= db.getRoomData();
+        NurseList=new ArrayList<>();
+        myCursor= db.getNurseData();
 
         if(myCursor.getCount()==0){
             Toast.makeText(ManageNursesActivity.this, "No Data", Toast.LENGTH_LONG).show();
@@ -84,13 +87,12 @@ public class ManageNursesActivity extends AppCompatActivity {
         else{
 
             while(myCursor.moveToNext()){
-                room=new Room(myCursor.getString(0),myCursor.getString(1),myCursor.getString(2));
-                RoomList.add(room);
-                RoomAdapter myAdapter=new RoomAdapter(this,R.layout.room_adapter_view,RoomList);
-                lv_room.setAdapter(myAdapter);
+                nurse=new Nurse(myCursor.getString(0),myCursor.getString(1),myCursor.getString(2));
+                NurseList.add(nurse);
+                NurseAdapter myAdapter=new NurseAdapter(this,R.layout.nurse_adapter_view,NurseList);
+                lv_nurse.setAdapter(myAdapter);
 
             }
-
 
         }
     }
@@ -100,10 +102,11 @@ public class ManageNursesActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Intent intent = new Intent(ManageNursesActivity.this,UpdateRoomActivity.class);
+                Intent intent = new Intent(ManageNursesActivity.this,UpdateNurseActivity.class);
 
                 Bundle extras = new Bundle();
-                extras.putString("CarryRoomId", carryRoomId);
+                extras.putString("carryNurseId", carryNurseId);
+                extras.putString("carryNurseName", carryNurseName);
                 intent.putExtras(extras);
 
                 startActivity(intent);
@@ -124,7 +127,7 @@ public class ManageNursesActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                boolean isDeleted=db.deleteRoom(roomId.getText().toString());
+                                boolean isDeleted=db.deleteNurse(nurseId);
                                 if(isDeleted==true){
                                     Toast.makeText(ManageNursesActivity.this, "Data deleted", Toast.LENGTH_LONG).show();
                                 finish();
@@ -145,7 +148,7 @@ public class ManageNursesActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Intent intent = new Intent(ManageNursesActivity.this,AddRoomsActivity.class);
+                Intent intent = new Intent(ManageNursesActivity.this,AddNursesActivity.class);
                 startActivity(intent);
             }
         });

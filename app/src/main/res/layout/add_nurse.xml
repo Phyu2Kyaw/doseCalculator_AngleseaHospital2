@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dosecalculator.dosecalculator_angleseahospital.ManageRoomsActivity">
+    tools:context="com.example.dosecalculator.dosecalculator_angleseahospital.AddNursesActivity">
 
     <TextView
         android:id="@+id/lblStatus"
@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:text="Status"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_room_details" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nurse_id" />
 
     <TextView
         android:id="@+id/lbl_employment_id"
@@ -24,26 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Details"
+        android:text="Nurse Employment ID"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_room_name" />
-
-    <EditText
-        android:id="@+id/txt_room_details"
-        android:layout_width="352dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_employment_id"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nurse_name" />
 
     <TextView
         android:id="@+id/lbl_nurse_name"
@@ -52,25 +37,38 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Room Name"
+        android:text="Nurse Name"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
-        android:id="@+id/txt_room_name"
-        android:layout_width="352dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/txt_nurse_name"
+        android:layout_width="356dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="0dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lbl_nurse_name"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_nurse_id"
+        android:layout_width="355dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_employment_id"
+        app:layout_constraintHorizontal_bias="0.333" />
 
     <Spinner
         android:id="@+id/spn_status"
@@ -88,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.375" />
 
     <Button
-        android:id="@+id/btn_update_room"
+        android:id="@+id/btn_add_nurse"
         android:layout_width="329dp"
         android:layout_height="57dp"
         android:layout_marginEnd="8dp"
@@ -97,9 +95,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:onClick="addButtonClicked"
-        android:text="Update Room"
+        android:text="Add Nurse"
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spn_status" />
+
+
 </android.support.constraint.ConstraintLayout>

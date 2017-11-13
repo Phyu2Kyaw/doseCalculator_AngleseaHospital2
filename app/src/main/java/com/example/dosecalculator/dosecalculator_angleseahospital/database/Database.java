@@ -98,10 +98,16 @@ public class Database extends SQLiteOpenHelper {
                 ");");
 
         /** Create TABLE_DRUGS */
-               db.execSQL(" Create table if not exists " + TABLE_DRUGS + " ( " + drug_ID +
-                              " Integer Primary Key Autoincrement, " + drug_Name + " text, " + drug_Weight +
-                                " text, " + drug_Volume + " text, " + max_Dosage + " text, " + calc_Method + " text, " +
-                               type_Patient + " text ) " );
+        db.execSQL(" Create table " + TABLE_DRUGS + " ( " +
+                drug_ID + " Integer Primary Key Autoincrement, " +
+                drug_Name + " text, " +
+                drug_Weight + " text, " +
+                drug_Volume + " text, " +
+                max_Dosage + " text, " +
+                calc_Method + " text, " +
+                type_Patient + " text " +
+               " ); " );
+        //addDrug();
     }
 
     @Override
@@ -260,13 +266,12 @@ public class Database extends SQLiteOpenHelper {
         return roomCursors;
     }
 
-    //Drug
     /** TABLE_DRUGS Details */
 
      public void addDrugs(Drugs drug) {
                 SQLiteDatabase db= this.getWritableDatabase();
                 ContentValues values = new ContentValues();
-                values.put(drug_ID, drug.getDrugId());
+                //values.put(drug_ID, drug.getDrugId());
                 values.put(drug_Name, drug.getDrugName());
                 values.put(drug_Weight, drug.getDrugWeight());
                 values.put(drug_Volume, drug.getDrugVolume());
@@ -276,14 +281,33 @@ public class Database extends SQLiteOpenHelper {
                 db.insert(TABLE_DRUGS, null, values);
             }
 
-    /*public boolean updateDrug(String roomId, String roomDetails, String status){
-        SQLiteDatabase db= this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put(COLUMN_Room_ID,roomId);
-        values.put(COLUMN_ROOM_DETAILS,roomDetails);
-        values.put(COLUMN_ROOM_STATUS,status);
+     /* private void addDrug() {
+          Drugs d1 = new Drugs(" Paracetamol (120/5) ", " 120 ", " 5 ", " 60 ", " p ", " p ");
+          this.addDrugs(d1);
+          Drugs d2 = new Drugs(" Paracetamol (250/5) ", " 250 ", " 5 ", " 60 ", " p ", " p ");
+          this.addDrugs(d2);
+          Drugs d3 = new Drugs(" Ibuprofen (100/5) ", " 100 ", " 5 ", " 40 ", " p ", " p ");
+          this.addDrugs(d3);
+          Drugs d4 = new Drugs(" Cyclizine (50/1) ", " 50 ", " 1 ", " 150 ", " a ", " a ");
+          this.addDrugs(d4);
+          Drugs d5 = new Drugs(" Droperidol (2.5/1) ", " 2.5 ", " 1 ", "  ", " a ", " a ");
+          this.addDrugs(d5);
+          Drugs d6 = new Drugs(" Morphine (100/5) ", " 100 ", " 5 ", "  ", " a ", " p ");
+          this.addDrugs(d6);
+      }*/
 
-        long result = db.update(TABLE_ROOM, values,"_id = ?",new String[] { roomId });
+    public boolean insertNewDrug(String name, String weight, String volume, String mDosage, String cMethod, String patientType){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        //values.put(drug_ID, drugId);
+        values.put(drug_Name, name);
+        values.put(drug_Weight, weight);
+        values.put(drug_Volume, volume);
+        values.put(max_Dosage, mDosage);
+        values.put(calc_Method, cMethod);
+        values.put(type_Patient, patientType);
+
+        long result = db.update(TABLE_DRUGS, values," DrugName = ?",new String[] { drug_Name });
         if (result == -1)
             return  false;
         else
@@ -291,9 +315,28 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean deleteDrug(String roomId){
+    public boolean updateDrug(String name, String weight, String volume, String mDosage, String cMethod, String patientType){
         SQLiteDatabase db= this.getWritableDatabase();
-        long result = db.delete(TABLE_ROOM, "_id = ?",new String[] { roomId });
+        ContentValues values = new ContentValues();
+       // values.put(drug_ID, drugId);
+        values.put(drug_Name, name);
+        values.put(drug_Weight, weight);
+        values.put(drug_Volume, volume);
+        values.put(max_Dosage, mDosage);
+        values.put(calc_Method, cMethod);
+        values.put(type_Patient, patientType);
+
+        long result = db.update(TABLE_DRUGS, values," DrugName = ?",new String[] { drug_Name });
+        if (result == -1)
+            return  false;
+        else
+            return true ;
+
+    }
+
+    public boolean deleteDrug(String drug_Name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_DRUGS, " DrugName = ?",new String[] { drug_Name });
         if (result == -1)
             return  false;
         else
@@ -302,10 +345,8 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getDrugData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor roomCursors = db.rawQuery("select * from "+TABLE_ROOM,null);
-        return roomCursors;
-    }*/
-
-
+        Cursor drugCursor = db.rawQuery(" select * from " + TABLE_DRUGS, null);
+        return drugCursor;
+    }
 
 }

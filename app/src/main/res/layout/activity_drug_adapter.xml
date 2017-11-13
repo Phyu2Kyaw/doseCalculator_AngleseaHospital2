@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/lbl_drug_name"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:text="Drug Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_weight_mg"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="Weight (mg)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_drug_name"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_drug_name" />
+
+        <TextView
+            android:id="@+id/lbl_volume_mL"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="Volume (mL)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_weight_mg"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_weight_mg" />
+
+        <TextView
+            android:id="@+id/lbl_result_drug_name"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lbl_result_weight_mg"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_result_drug_name"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_result_drug_name"/>
+
+        <TextView
+            android:id="@+id/lbl_result_volume_mL"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_result_weight_mg"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_result_weight_mg" />
+
+        <TextView
+            android:id="@+id/lbl_max_Dosage"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="Max Dosage"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_volume_mL"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_volume_mL" />
+
+
+        <TextView
+            android:id="@+id/lbl_calc_method"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="Calculation Method"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_max_Dosage"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_max_Dosage" />
+
+        <TextView
+            android:id="@+id/lbl_type_patient"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="Type of Patient"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_calc_method"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_calc_method" />
+
+        <TextView
+            android:id="@+id/lbl_result_max_Dosage"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_result_volume_mL"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_result_volume_mL"/>
+
+        <TextView
+            android:id="@+id/lbl_result_calc_method"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_result_max_Dosage"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_result_max_Dosage" />
+
+        <TextView
+            android:id="@+id/lbl_result_type_patient"
+            android:layout_width="193dp"
+            android:layout_height="35dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toLeftOf="@+id/lbl_result_calc_method"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_result_calc_method" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

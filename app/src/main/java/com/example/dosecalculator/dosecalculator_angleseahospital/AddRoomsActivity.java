@@ -16,12 +16,12 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.database.Datab
 
 public class AddRoomsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     EditText roomId;
-    public String myStatusSelection;
-    public String myRoomType;
     EditText roomDetails;
     Button myButton;
-    Database db;
     Spinner status;
+    public String myStatusSelection;
+    public String myRoomType;
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -42,6 +42,8 @@ public class UpdateRoomActivity extends AppCompatActivity implements AdapterView
         status = (Spinner) findViewById(R.id.spn_status);
         myButton=(Button)findViewById(R.id.btn_update_room);
 
+
+
         updateButtonClicked();
         spinner();
     }
@@ -77,6 +79,7 @@ public class UpdateRoomActivity extends AppCompatActivity implements AdapterView
     }
 
     public void updateButtonClicked(){
+
         myButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){

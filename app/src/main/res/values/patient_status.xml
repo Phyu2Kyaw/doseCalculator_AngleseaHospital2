@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="patient_status">
+        <item>Active</item>
+        <item>Deactive</item>
+    </string-array>
+</resources>

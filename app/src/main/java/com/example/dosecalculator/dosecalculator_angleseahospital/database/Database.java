@@ -15,7 +15,7 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "anglesea_hospital03.db";
+    public static final String DATABASE_NAME = "anglesea_hospital04.db";
     private static final int DATABASE_VERSION=1;
 
     public static final String TABLE_ROOM="room";
@@ -28,6 +28,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_patient_NAME="Name";
     public static final String COLUMN_patient_DOB="DOB";
     public static final String COLUMN_patient_WEIGHT="Weight";
+    public static final String COLUMN_patient_TYPE="Type";
     public static final String COLUMN_patient_STATUS="Status";
 
     public static final String TABLE_NURSE="nurse";
@@ -87,6 +88,7 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_patient_NAME + " TEXT ," +
                 COLUMN_patient_DOB + " TEXT ," +
                 COLUMN_patient_WEIGHT + " INTEGER ," +
+                COLUMN_patient_TYPE + " TEXT ," +
                 COLUMN_patient_STATUS + " TEXT " +
                 ");");
 
@@ -109,6 +111,7 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ROOM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NURSE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
         //db.execSQL("DROP TABLE IF EXISTS " + TABLE_DRUG);
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_DRUGS);
         onCreate(db);
@@ -162,13 +165,14 @@ public class Database extends SQLiteOpenHelper {
 
 
     //Patient
-    public boolean insertPatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_STATUS){
+    public boolean insertPatient(String patient_ID, String patient_NAME, String patient_DOB, String patient_WEIGHT,String patient_type,String patient_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(COLUMN_patient_ID,patient_ID);
         values.put(COLUMN_patient_NAME,patient_NAME);
         values.put(COLUMN_patient_DOB,patient_DOB);
         values.put(COLUMN_patient_WEIGHT,patient_WEIGHT);
+        values.put(COLUMN_patient_TYPE,patient_type);
         values.put(COLUMN_patient_STATUS,patient_STATUS);
 
         long result = db.insert(TABLE_PATIENT, null, values);
@@ -179,13 +183,14 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean updatePatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_STATUS){
+    public boolean updatePatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_type,String patient_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(COLUMN_patient_ID,patient_ID);
         values.put(COLUMN_patient_NAME,patient_NAME);
         values.put(COLUMN_patient_DOB,patient_DOB);
         values.put(COLUMN_patient_WEIGHT,patient_WEIGHT);
+        values.put(COLUMN_patient_TYPE,patient_type);
         values.put(COLUMN_patient_STATUS,patient_STATUS);
 
         long result = db.update(TABLE_PATIENT, values,"NHI_id = ?",new String[] { patient_ID });

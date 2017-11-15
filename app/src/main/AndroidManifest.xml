@@ -7,10 +7,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RegisterPatient"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -18,21 +17,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".MainActivity" />
         <activity android:name=".ManageRoomsActivity" />
         <activity android:name=".ManageDrugsActivity" />
         <activity android:name=".ManageNursesActivity" />
         <activity android:name=".ManagePatientsActivity" />
-        <activity android:name=".DrugDetails"></activity>
-        <activity android:name=".AddRoomsActivity"></activity>
-        <activity android:name=".UpdateRoomActivity"></activity>
-        <activity android:name=".AddDrugsActivity">
-
-        </activity>
-
-
+        <activity android:name=".DrugDetails" />
+        <activity android:name=".AddRoomsActivity" />
+        <activity android:name=".AddNursesActivity" />
+        <activity android:name=".AddPatientActivity" />
+        <activity android:name=".UpdateRoomActivity" />
+        <activity android:name=".UpdateNurseActivity" />
+        <activity android:name=".AddDrugsActivity" />
+        <activity android:name=".DrugCalculation" />
+        <activity android:name=".UpdatePatientActivity"></activity>
     </application>
 
 </manifest>

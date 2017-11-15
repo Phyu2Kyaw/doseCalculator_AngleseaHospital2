@@ -39,16 +39,15 @@ public class ManagePatientsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_patients);
+        setContentView(R.layout.activity_manage_patient);
 
         db=new Database(this);
+        add=(FloatingActionButton) findViewById(R.id.ficon_add_patients);
+        update=(FloatingActionButton) findViewById(R.id.ficon_update_patients);
+        delete=(FloatingActionButton) findViewById(R.id.ficon_delete_patients);
+        lv_patients=(ListView) findViewById(R.id.lv_patient);
 
-        add=(FloatingActionButton) findViewById(R.id.ficon_add_patient);
-        update=(FloatingActionButton) findViewById(R.id.ficon_update_patient);
-        delete=(FloatingActionButton) findViewById(R.id.ficon_delete_patient);
-        lv_patients=(ListView) findViewById(R.id.lv_patients);
-
-        //txtSearch=(EditText)findViewById(R.id.txt_nurse_name);
+      // txtSearch=(EditText)findViewById(R.id.txt_patient_names);
 
 
         addBtnClicked();
@@ -62,7 +61,7 @@ public class ManagePatientsActivity extends AppCompatActivity {
                                     int position, long id) {
 
                 patient =patientList.get(position);
-                patientId=(EditText)findViewById(R.id.txt_patient_id);
+                patientId=(EditText)findViewById(R.id.txt_patient_names);
 
                 patientId.setText((patient.getNhi_no()));
                 //nurseId=nurse.geteId();

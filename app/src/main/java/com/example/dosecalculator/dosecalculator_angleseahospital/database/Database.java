@@ -189,7 +189,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean updatePatient(String patient_ID, String patient_NAME, String patient_DOB, Integer patient_WEIGHT,String patient_type,String patient_STATUS){
+    public boolean updatePatient(String patient_ID, String patient_NAME, String patient_DOB, String patient_WEIGHT,String patient_type,String patient_STATUS){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put(COLUMN_patient_ID,patient_ID);
@@ -199,7 +199,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(COLUMN_patient_TYPE,patient_type);
         values.put(COLUMN_patient_STATUS,patient_STATUS);
 
-        long result = db.update(TABLE_PATIENT, values,"NHI_id = ?",new String[] { patient_ID });
+        long result = db.update(TABLE_PATIENT, values,"NHI_id=?",new String[] { patient_ID });
         if (result == -1)
             return  false;
         else
@@ -209,7 +209,7 @@ public class Database extends SQLiteOpenHelper {
 
     public boolean deletePatient(String patient_ID){
         SQLiteDatabase db= this.getWritableDatabase();
-        long result = db.delete(TABLE_PATIENT, "NHI_id = ?",new String[] { patient_ID });
+        long result = db.delete(TABLE_PATIENT, "NHI_id=?",new String[] { patient_ID });
         if (result == -1)
             return  false;
         else

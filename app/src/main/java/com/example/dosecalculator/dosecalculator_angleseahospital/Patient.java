@@ -12,9 +12,9 @@ public class Patient {
     public String pStatus;
     public String pWeight;
 
-    public Patient(String pName, String nhi_no, String pDob, String pWeight,String pType, String pStatus) {
-        this.pName = pName;
+    public Patient(String nhi_no, String pName, String pDob, String pWeight,String pType, String pStatus) {
         this.nhi_no = nhi_no;
+        this.pName = pName;
         this.pDob = pDob;
         this.pWeight = pWeight;
         this.pType = pType;

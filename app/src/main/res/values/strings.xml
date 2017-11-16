@@ -7,6 +7,7 @@
     <string name="action_delete_todo">Delete</string>
     <string name="action_settings">Setting</string>
     <string name="action_add_room">Manage Rooms</string>
+    <string name="action_home">Home</string>
     <string name="action_patients">Manage Patients</string>
     <string name="action_nurse">Manage Nurses</string>
     <string name="action_drugs">Manage Drugs</string>

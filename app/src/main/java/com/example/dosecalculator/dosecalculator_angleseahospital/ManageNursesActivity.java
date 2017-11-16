@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -43,6 +47,9 @@ public class ManageNursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_nurses);
+
+        /*Toolbar myToolbar=(Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);*/
 
        db=new Database(this);
 
@@ -160,7 +167,40 @@ public class ManageNursesActivity extends AppCompatActivity {
         super.onResume();
         this.onCreate(null);
     }*/
+   @Override
+   public boolean onCreateOptionsMenu (Menu menu){
+       MenuInflater myMenuInflater=getMenuInflater();
+       myMenuInflater.inflate(R.menu.menu_main, menu);
+       return true;
+   }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_home:
+                //get the home
+                Intent home = new Intent(ManageNursesActivity.this, MainActivity.class);
+                startActivity(home);
+                break;
+            case R.id.action_add_room:
+                //get the categories cursor for the
+                Intent room = new Intent(ManageNursesActivity.this, ManageRoomsActivity.class);
+                startActivity(room);
+                break;
+            case R.id.action_nurse:
+                //get the categories cursor for the
+                Intent nurses = new Intent(ManageNursesActivity.this, ManageNursesActivity.class);
+                startActivity(nurses);
+                break;
+         /*   case R.id.action_drug:
+                //get the categories cursor for the
+                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+                startActivity(drugs);
+                break;*/
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 

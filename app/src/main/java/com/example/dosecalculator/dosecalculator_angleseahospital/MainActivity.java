@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_home:
+                //get the home
+                Intent home = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(home);
+                break;
             case R.id.action_add_room:
                 //get the categories cursor for the
                 Intent room = new Intent(MainActivity.this, ManageRoomsActivity.class);
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent nurses = new Intent(MainActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
-           /* case R.id.action_drug:
+         /*   case R.id.action_drug:
                 //get the categories cursor for the
                 Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
                 startActivity(drugs);

@@ -27,6 +27,10 @@ public class ManageDrugsActivity extends AppCompatActivity {
     ListView my_lv;
     Drugs drug;
     public String carryDrugName;
+    public String carryDrugWeight;
+    public String carryDrugVolume;
+    public String carryMaxDosage;
+    public String carryCalcMethod;
     public String carryTypePatient;
     EditText drugName;
     EditText typePatient;
@@ -87,8 +91,8 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 drug = new Drugs(myCursor.getString(0),myCursor.getString(1),myCursor.getString(2),
                         myCursor.getString(3),myCursor.getString(4),myCursor.getString(5));
                 DrugList.add(drug);
-               DrugAdapter myAdapter = new DrugAdapter(this,R.layout.activity_drug_adapter, DrugList);
-               lv_drugs.setAdapter(myAdapter);
+               DrugAdapter myAdapter = new DrugAdapter(this, R.layout.activity_drug_adapter, DrugList);
+                lv_drugs.setAdapter(myAdapter);
 
             }
         }
@@ -102,7 +106,12 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ManageDrugsActivity.this,UpdateDrugActivity.class);
 
                 Bundle extras = new Bundle();
-                extras.putString(" CarryDrugName ", carryDrugName);
+                extras.putString("CarryDrugName", carryDrugName);
+                extras.putString("CarryDrugWeight", carryDrugWeight);
+                extras.putString("CarryDrugVolume", carryDrugVolume);
+                extras.putString("CarryMaxDosage", carryMaxDosage);
+                extras.putString("CarryCalcMethod", carryCalcMethod);
+                extras.putString("CarryDrugWeight", carryTypePatient);
                 intent.putExtras(extras);
 
                 startActivity(intent);

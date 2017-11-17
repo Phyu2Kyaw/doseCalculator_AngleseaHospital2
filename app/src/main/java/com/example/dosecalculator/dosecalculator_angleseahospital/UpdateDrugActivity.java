@@ -27,6 +27,13 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
     Spinner calcMethod;
     Spinner typePatient;
 
+    String myDrugName;
+    String myDrugWeight;
+    String myDrugVolume;
+    String myMaxDosage;
+    String myCalcMethod;
+    String myPatientType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,22 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
         calcMethod = (Spinner) findViewById(R.id.calcMethod);
         typePatient = (Spinner) findViewById(R.id.typePatient);
         update =(Button)findViewById(R.id.btn_add_drug);
+
+        //to get passed string value
+        Bundle extras = getIntent().getExtras();
+        myDrugName = extras.getString("carryDrugName");
+        myDrugWeight = extras.getString("carryDrugWeight");
+        myDrugVolume = extras.getString("carryDrugVolume");
+        myMaxDosage = extras.getString("carryMaxDosage");
+        myCalcMethod = extras.getString("carryCalcMethod");
+        myPatientType = extras.getString("carryPatientType");
+
+
+        drugName.setText(myDrugName);
+        weight.setText(myDrugWeight);
+        volume.setText(myDrugVolume);
+        maxDosage.setText(myMaxDosage);
+
         spinner();
         spinner2();
         updateButtonClicked();

@@ -168,6 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Child"
+            android:onClick="rbclick"
             tools:layout_editor_absoluteX="204dp"
             tools:layout_editor_absoluteY="385dp" />
 
@@ -176,6 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="rbclick"
             android:text="Adult" />
     </RadioGroup>
 

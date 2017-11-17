@@ -38,13 +38,13 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_NURSE_STATUS="Status";
 
     public static final String TABLE_DRUGS = " drugs ";
-    public static final String drug_ID = " _dId ";
-    public static final String drug_Name = " Drug_Name ";
-    public static final String drug_Weight = " Drug_Weight ";    // mg
-    public static final String drug_Volume = " Drug_Volume ";    // mL
-    public static final String max_Dosage = " Max_Dosage ";
-    public static final String calc_Method = " Calc_Method ";    // calculation method - adult or pediatrics
-    public static final String type_Patient = " Type_Patient ";  // type of patient
+    public static final String COLUMN_DRUG_ID = "_dId ";
+    public static final String COLUMN_DRUG_NAME = "Drug_Name";
+    public static final String COLUMN_DRUG_WEIGHT = "Drug_Weight";    // mg
+    public static final String COLUMN_DRUG_VOLUME = "Drug_Volume";    // mL
+    public static final String COLUMN_MAX_DOSAGE = "Max_Dosage";
+    public static final String COLUMN_CALC_METHOD = "Calc_Method";    // calculation method - adult or pediatrics
+    public static final String COLUMN_TYPE_PATIENT = "Type_Patient";  // type of patient
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -101,13 +101,13 @@ public class Database extends SQLiteOpenHelper {
 
         /** Create TABLE_DRUGS */
         db.execSQL(" Create table " + TABLE_DRUGS + " ( " +
-                drug_ID + " Integer Primary Key Autoincrement, " +
-                drug_Name + " text, " +
-                drug_Weight + " text, " +
-                drug_Volume + " text, " +
-                max_Dosage + " text, " +
-                calc_Method + " text, " +
-                type_Patient + " text " +
+                COLUMN_DRUG_ID + " Integer Primary Key Autoincrement, " +
+                COLUMN_DRUG_NAME + " text, " +
+                COLUMN_DRUG_WEIGHT + " text, " +
+                COLUMN_DRUG_VOLUME + " text, " +
+                COLUMN_MAX_DOSAGE + " text, " +
+                COLUMN_CALC_METHOD + " text, " +
+                COLUMN_TYPE_PATIENT + " text " +
                " ); " );
         //addDrug();
     }
@@ -277,12 +277,12 @@ public class Database extends SQLiteOpenHelper {
                 SQLiteDatabase db= this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 //values.put(drug_ID, drug.getDrugId());
-                values.put(drug_Name, drug.getDrugName());
-                values.put(drug_Weight, drug.getDrugWeight());
-                values.put(drug_Volume, drug.getDrugVolume());
-                values.put(max_Dosage, drug.getMaxDosage());
-                values.put(calc_Method, drug.getCalcMethod());
-                values.put(type_Patient, drug.getTypePatient());
+                values.put(COLUMN_DRUG_NAME, drug.getDrugName());
+                values.put(COLUMN_DRUG_WEIGHT, drug.getDrugWeight());
+                values.put(COLUMN_DRUG_VOLUME, drug.getDrugVolume());
+                values.put(COLUMN_MAX_DOSAGE, drug.getMaxDosage());
+                values.put(COLUMN_CALC_METHOD, drug.getCalcMethod());
+                values.put(COLUMN_TYPE_PATIENT, drug.getTypePatient());
                 db.insert(TABLE_DRUGS, null, values);
             }
 
@@ -305,14 +305,14 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         //values.put(drug_ID, drugId);
-        values.put(drug_Name, name);
-        values.put(drug_Weight, weight);
-        values.put(drug_Volume, volume);
-        values.put(max_Dosage, mDosage);
-        values.put(calc_Method, cMethod);
-        values.put(type_Patient, patientType);
+        values.put(COLUMN_DRUG_NAME, name);
+        values.put(COLUMN_DRUG_WEIGHT, weight);
+        values.put(COLUMN_DRUG_VOLUME, volume);
+        values.put(COLUMN_MAX_DOSAGE, mDosage);
+        values.put(COLUMN_CALC_METHOD, cMethod);
+        values.put(COLUMN_TYPE_PATIENT, patientType);
 
-        long result = db.update(TABLE_DRUGS, values," DrugName = ?",new String[] { drug_Name });
+        long result = db.update(TABLE_DRUGS, values,"Drug_Name=?",new String[] { name });
         if (result == -1)
             return  false;
         else
@@ -324,14 +324,14 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values = new ContentValues();
        // values.put(drug_ID, drugId);
-        values.put(drug_Name, name);
-        values.put(drug_Weight, weight);
-        values.put(drug_Volume, volume);
-        values.put(max_Dosage, mDosage);
-        values.put(calc_Method, cMethod);
-        values.put(type_Patient, patientType);
+        values.put(COLUMN_DRUG_NAME, name);
+        values.put(COLUMN_DRUG_WEIGHT, weight);
+        values.put(COLUMN_DRUG_VOLUME, volume);
+        values.put(COLUMN_MAX_DOSAGE, mDosage);
+        values.put(COLUMN_CALC_METHOD, cMethod);
+        values.put(COLUMN_TYPE_PATIENT, patientType);
 
-        long result = db.update(TABLE_DRUGS, values," DrugName = ?",new String[] { drug_Name });
+        long result = db.update(TABLE_DRUGS, values," Drug_Name = ?",new String[] { name });
         if (result == -1)
             return  false;
         else
@@ -341,7 +341,7 @@ public class Database extends SQLiteOpenHelper {
 
     public boolean deleteDrug(String drug_Name){
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TABLE_DRUGS, " DrugName = ?",new String[] { drug_Name });
+        long result = db.delete(TABLE_DRUGS, "Drug_Name =?",new String[] { drug_Name });
         if (result == -1)
             return  false;
         else

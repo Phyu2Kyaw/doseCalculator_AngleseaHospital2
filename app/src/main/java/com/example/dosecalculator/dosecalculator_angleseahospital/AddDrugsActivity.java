@@ -27,6 +27,8 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
     Spinner calcMethod;
     Spinner typePatient;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

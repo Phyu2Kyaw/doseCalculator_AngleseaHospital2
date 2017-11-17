@@ -53,7 +53,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
         addBtnClicked();
         updateBtnClicked();
         deleteBtnClicked();
-        //displayDrugs();
+        displayDrugs();
 
         lv_drugs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,10 +73,10 @@ public class ManageDrugsActivity extends AppCompatActivity {
 
     }
 
-    /*private void displayDrugs() {
+    private void displayDrugs() {
 
-        DrugList=new ArrayList<>();
-        myCursor= db.getDrugData();
+        DrugList = new ArrayList<>();
+        myCursor = db.getDrugData();
 
         if(myCursor.getCount()==0){
             Toast.makeText(ManageDrugsActivity.this, "No Drugs are Listed", Toast.LENGTH_LONG).show();
@@ -88,11 +88,11 @@ public class ManageDrugsActivity extends AppCompatActivity {
                         myCursor.getString(3),myCursor.getString(4),myCursor.getString(5));
                 DrugList.add(drug);
                DrugAdapter myAdapter = new DrugAdapter(this,R.layout.activity_drug_adapter, DrugList);
-               lv_drugs.setAdapter((ListAdapter) myAdapter);
+               lv_drugs.setAdapter(myAdapter);
 
             }
         }
-    }*/
+    }
 
     private void updateBtnClicked() {
 
@@ -123,7 +123,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                boolean isDeleted = db.deleteRoom(drugName.getText().toString());
+                                boolean isDeleted = db.deleteDrug(drugName.getText().toString());
                                 if(isDeleted == true){
                                     Toast.makeText(ManageDrugsActivity.this, " Drug deleted ", Toast.LENGTH_LONG).show();
                                 finish();

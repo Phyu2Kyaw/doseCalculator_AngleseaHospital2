@@ -115,6 +115,7 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View V){
 
+
                 roomStatus="Deactive";
                 db.updateRoomStatus(roomId,roomStatus);
                 /*boolean isInserted=db.insertNurse(empId.getText().toString(),nurseName.getText().toString(), myStatusSelection );

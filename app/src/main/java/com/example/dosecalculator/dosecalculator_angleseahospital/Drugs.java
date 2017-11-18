@@ -7,7 +7,7 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 
 public class Drugs {
 
-   // public String drug_ID;
+    public String drug_ID;
     public String drug_Name;
     public String drug_Weight;
     public String drug_Volume;
@@ -30,7 +30,7 @@ public class Drugs {
 
     }
 
-   // public String getDrugId() { return drug_ID;    }
+   public String getDrugId() { return drug_ID;    }
 
     public String getDrugName() {
         return drug_Name;
@@ -54,7 +54,7 @@ public class Drugs {
         return type_Patient;
     }
 
-   // public void setDrugId(String id) {  this.drug_ID = id;}
+   public void setDrugId(String id) {  this.drug_ID = id;}
 
     public void setDrugName(String drugName) {
         this.drug_Name = drugName;

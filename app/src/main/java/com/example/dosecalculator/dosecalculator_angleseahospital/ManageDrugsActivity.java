@@ -27,6 +27,10 @@ public class ManageDrugsActivity extends AppCompatActivity {
     ListView my_lv;
     Drugs drug;
     public String carryDrugName;
+    public String carryDrugWeight;
+    public String carryDrugVolume;
+    public String carryMaxDosage;
+    public String carryCalcMethod;
     public String carryTypePatient;
     EditText drugName;
     EditText typePatient;
@@ -53,7 +57,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
         addBtnClicked();
         updateBtnClicked();
         deleteBtnClicked();
-        //displayDrugs();
+        displayDrugs();
 
         lv_drugs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,10 +77,10 @@ public class ManageDrugsActivity extends AppCompatActivity {
 
     }
 
-    /*private void displayDrugs() {
+    private void displayDrugs() {
 
-        DrugList=new ArrayList<>();
-        myCursor= db.getDrugData();
+        DrugList = new ArrayList<>();
+        myCursor = db.getDrugData();
 
         if(myCursor.getCount()==0){
             Toast.makeText(ManageDrugsActivity.this, "No Drugs are Listed", Toast.LENGTH_LONG).show();
@@ -87,12 +91,12 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 drug = new Drugs(myCursor.getString(0),myCursor.getString(1),myCursor.getString(2),
                         myCursor.getString(3),myCursor.getString(4),myCursor.getString(5));
                 DrugList.add(drug);
-               DrugAdapter myAdapter = new DrugAdapter(this,R.layout.activity_drug_adapter, DrugList);
-               lv_drugs.setAdapter((ListAdapter) myAdapter);
+               DrugAdapter myAdapter = new DrugAdapter(this, R.layout.activity_drug_adapter, DrugList);
+                lv_drugs.setAdapter(myAdapter);
 
             }
         }
-    }*/
+    }
 
     private void updateBtnClicked() {
 
@@ -102,7 +106,12 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 Intent intent = new Intent(ManageDrugsActivity.this,UpdateDrugActivity.class);
 
                 Bundle extras = new Bundle();
-                extras.putString(" CarryDrugName ", carryDrugName);
+                extras.putString("CarryDrugName", carryDrugName);
+                extras.putString("CarryDrugWeight", carryDrugWeight);
+                extras.putString("CarryDrugVolume", carryDrugVolume);
+                extras.putString("CarryMaxDosage", carryMaxDosage);
+                extras.putString("CarryCalcMethod", carryCalcMethod);
+                extras.putString("CarryDrugWeight", carryTypePatient);
                 intent.putExtras(extras);
 
                 startActivity(intent);
@@ -123,7 +132,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
 
-                                boolean isDeleted = db.deleteRoom(drugName.getText().toString());
+                                boolean isDeleted = db.deleteDrug(drugName.getText().toString());
                                 if(isDeleted == true){
                                     Toast.makeText(ManageDrugsActivity.this, " Drug deleted ", Toast.LENGTH_LONG).show();
                                 finish();

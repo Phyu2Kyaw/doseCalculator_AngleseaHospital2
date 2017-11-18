@@ -1,17 +1,29 @@
 package com.example.dosecalculator.dosecalculator_angleseahospital;
 
-/*public class DrugAdapter extends ArrayList<Drugs> {
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+
+
+public class DrugAdapter extends ArrayAdapter<Drugs>  {
 
     private LayoutInflater myInflater;
     private ArrayList<Drugs> drugs;
     private int mViewResourceId;
 
 
-    public DrugAdapter(Context context, int resource, ArrayList<Drugs> drugs) {
-        super(context, resource, drugs);
-        this.drugs = drugs;
+    public DrugAdapter(Context context, int resource, ArrayList<Drugs> drug) {
+        super(context, resource, drug);
+        this.drugs = drug;
         myInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mViewResourceId= resource;
+        mViewResourceId = resource;
 
     }
 
@@ -54,4 +66,3 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 
     }
 }
-*/

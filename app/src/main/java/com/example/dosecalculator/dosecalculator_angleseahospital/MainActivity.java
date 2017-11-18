@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         doCalculation.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                Intent drugCalculate = new Intent(MainActivity.this,DrugCalculation.class);
+                Intent drugCalculate = new Intent(MainActivity.this,ManageCalculation.class);
                 startActivity(drugCalculate);
             }
         });

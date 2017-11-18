@@ -31,6 +31,9 @@
         <activity android:name=".AddDrugsActivity" />
         <activity android:name=".DrugCalculation" />
         <activity android:name=".UpdatePatientActivity" />
+        <activity android:name=".ManageCalculation" />
+        <activity android:name=".AddCalculation" />
+        <activity android:name=".NurseConfirmation"/>
     </application>
 
 </manifest>

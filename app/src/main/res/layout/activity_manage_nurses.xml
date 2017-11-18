@@ -54,9 +54,9 @@
 
     <TextView
         android:id="@+id/lbl_Empid"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="22dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="42dp"
         android:layout_marginRight="24dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="30dp"
@@ -67,7 +67,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon_update"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginEnd="24dp" />
 
     <EditText
         android:id="@+id/txt_nurse_name"
@@ -87,12 +88,12 @@
     <ListView
         android:isScrollContainer="false"
         android:id="@+id/lst_view_nurse"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="204dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="49dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="49dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -15,7 +15,7 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "anglesea_hospital04.db";
+    public static final String DATABASE_NAME = "anglesea_hospital05.db";
     private static final int DATABASE_VERSION=1;
 
     public static final String TABLE_ROOM="room";
@@ -31,11 +31,16 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_patient_TYPE="Type";
     public static final String COLUMN_patient_STATUS="Status";
 
-    public static final String TABLE_NURSE="nurse";
+    public static final String TABLE_calculator="calculator";
     //public static final String COLUMN_nurse_ID="_id";
-    public static final String COLUMN_NURSE_NAME="Name";
-    public static final String COLUMN_NURSE_EMPLOYMENT_ID="Nurse_id";
-    public static final String COLUMN_NURSE_STATUS="Status";
+    public static final String COLUMN_calculationId="cId";
+    public static final String COLUMN_patientId="pId";
+    public static final String COLUMN_roomId="roomId";
+    public static final String COLUMN_drugId="drugId";
+    public static final String COLUMN_nurseId="nurseId";
+    public static final String COLUMN_standard_order="standard_order";
+    public static final String COLUMN_calculation_result="result";
+    public static final String COLUMN_status="status";
 
     public static final String TABLE_DRUGS = " drugs ";
     public static final String drug_ID = " _dId ";
@@ -45,6 +50,12 @@ public class Database extends SQLiteOpenHelper {
     public static final String max_Dosage = " Max_Dosage ";
     public static final String calc_Method = " Calc_Method ";    // calculation method - adult or pediatrics
     public static final String type_Patient = " Type_Patient ";  // type of patient
+
+    public static final String TABLE_NURSE="nurse";
+    //public static final String COLUMN_nurse_ID="_id";
+    public static final String COLUMN_NURSE_NAME="Name";
+    public static final String COLUMN_NURSE_EMPLOYMENT_ID="Nurse_id";
+    public static final String COLUMN_NURSE_STATUS="Status";
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -110,6 +121,18 @@ public class Database extends SQLiteOpenHelper {
                 type_Patient + " text " +
                " ); " );
         //addDrug();
+
+        /** Create TABLE_calculator */
+        db.execSQL(" Create table " + TABLE_calculator + " ( " +
+                COLUMN_calculationId + " Integer Primary Key Autoincrement, " +
+                COLUMN_patientId + " text, " +
+                COLUMN_roomId + " text, " +
+                COLUMN_drugId + " text, " +
+                COLUMN_nurseId + " text, " +
+                COLUMN_standard_order + " text, " +
+                COLUMN_calculation_result + " text ," +
+                COLUMN_status + " text " +
+                " ); " );
     }
 
     @Override
@@ -353,5 +376,69 @@ public class Database extends SQLiteOpenHelper {
         Cursor drugCursor = db.rawQuery(" select * from " + TABLE_DRUGS, null);
         return drugCursor;
     }
+
+
+    public Cursor findPid(String pId){
+        SQLiteDatabase db= this.getWritableDatabase();
+        String query = "SELECT * FROM patient WHERE NHI_id='" + pId +"'";
+
+        Cursor  cursor = db.rawQuery(query,null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor findNid(String nId){
+        SQLiteDatabase db= this.getWritableDatabase();
+        String query = "SELECT * FROM nurse WHERE Nurse_id='" + nId +"'";
+
+        Cursor  cursor = db.rawQuery(query,null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor getActiveRoom(){
+        SQLiteDatabase db= this.getWritableDatabase();
+        String query = "SELECT * FROM room where Status!='Deactive'";
+
+        Cursor  cursor = db.rawQuery(query,null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public Cursor lockRoom(String rId){
+        SQLiteDatabase db= this.getWritableDatabase();
+        String query = "SELECT * FROM room WHERE _id='" + rId +"'";
+
+        Cursor  cursor = db.rawQuery(query,null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+        return cursor;
+    }
+
+    public boolean updateRoomStatus(String roomId, String status){
+        SQLiteDatabase db= this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put(COLUMN_Room_ID,roomId);
+        values.put(COLUMN_ROOM_STATUS,status);
+
+        long result = db.update(TABLE_ROOM, values,"_id = ?",new String[] { roomId });
+        if (result == -1)
+            return  false;
+        else
+            return true ;
+
+    }
+
 
 }

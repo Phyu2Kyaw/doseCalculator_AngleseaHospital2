@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent nurses = new Intent(MainActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
-         /*   case R.id.action_drug:
+            case R.id.action_drug:
                 //get the categories cursor for the
-                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+                Intent drugs = new Intent(MainActivity.this, ManageDrugsActivity.class);
                 startActivity(drugs);
-                break;*/
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

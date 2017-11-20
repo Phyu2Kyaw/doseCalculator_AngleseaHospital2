@@ -85,9 +85,9 @@ public class UpdateRoomActivity extends AppCompatActivity implements AdapterView
             public void onClick(View V){
                 boolean isInserted=db.updateRoom(roomId.getText().toString(), roomDetails.getText().toString(),myStatusSelection );
                 if(isInserted==true)
-                    Toast.makeText(UpdateRoomActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateRoomActivity.this, "Data Changed", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(UpdateRoomActivity.this, "Room Details inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateRoomActivity.this, "Room Details updated", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(UpdateRoomActivity.this,ManageRoomsActivity.class);
                 startActivity(intent);
             }

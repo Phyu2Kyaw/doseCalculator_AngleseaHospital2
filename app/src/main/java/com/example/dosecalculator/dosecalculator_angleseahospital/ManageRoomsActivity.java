@@ -3,11 +3,10 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -188,20 +187,25 @@ public class ManageRoomsActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
             case R.id.action_add_room:
-                //get the categories cursor for the
+                //get the categories cursor for the rooms
                 Intent room = new Intent(ManageRoomsActivity.this, ManageRoomsActivity.class);
                 startActivity(room);
                 break;
             case R.id.action_nurse:
-                //get the categories cursor for the
+                //get the categories cursor for the nurses
                 Intent nurses = new Intent(ManageRoomsActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
-         /*   case R.id.action_drug:
-                //get the categories cursor for the
-                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+            case R.id.action_drug:
+                //get the categories cursor for the drugs
+                Intent drugs = new Intent(ManageRoomsActivity.this, ManageDrugsActivity.class);
                 startActivity(drugs);
-                break;*/
+                break;
+            case R.id.action_patients:
+                //get the categories cursor for the patients
+                Intent patients = new Intent(ManageRoomsActivity.this, ManagePatientsActivity.class);
+                startActivity(patients);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

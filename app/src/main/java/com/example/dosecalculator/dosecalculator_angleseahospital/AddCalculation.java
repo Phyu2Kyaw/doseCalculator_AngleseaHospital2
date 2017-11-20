@@ -3,11 +3,10 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +33,7 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
     EditText standingOrder;
     Cursor cursorPidFound;
     Cursor cursorRoomList;
+    Cursor cursorDrugName;
 
     ArrayList<Patient> patientList;
     String pName;
@@ -53,13 +52,15 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
     ArrayList<String> listResult;
     String[] ITEMS;
 
+    List<String> drugList;
+    Spinner selectDrug;
+    String drugId;
+    String myDrug;
+
     public String carryPatientId;
-    public String carryDrugId;
+    public String carryDrugName;
     public String carryStandingOrder;
     public String carryRoomId;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,10 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
         selectRoom=(Spinner) findViewById(R.id.spn_room);
         calculate=(Button) findViewById(R.id.btn_calculate);
 
-        selectRoom();
+        selectDrug = (Spinner) findViewById(R.id.spn_drug);
 
+        selectRoom();
+        showDrugDetails();
         showPatientDetails();
         calculate();
 
@@ -124,6 +127,7 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
                                         extras.putString("carryPatientId", carryPatientId);
                                         extras.putString("carryStandingOrder", carryStandingOrder);
                                         extras.putString("carryRoomId", carryRoomId);
+                                        extras.putString("carryDrugId", carryDrugName);
                                         intent.putExtras(extras);
 
                                         startActivity(intent);
@@ -137,6 +141,31 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
 
 
     private void showDrugDetails() {
+        drugList = new ArrayList<String>();
+        cursorDrugName = db.getDrugData();
+
+        if(cursorDrugName.getCount() == 0){
+            Toast.makeText(AddCalculation.this, "No Data", Toast.LENGTH_LONG).show();
+        }
+        else {
+
+            if (cursorDrugName.moveToFirst()) {
+                do {
+                    drugList.add(cursorDrugName.getString(1));
+                } while (cursorDrugName.moveToNext());
+            }
+        }
+        cursorDrugName.close();
+        db.close();
+        ArrayAdapter<String> StatusAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, drugList);
+        // Specify the layout to use when the list of choices appears
+        StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        selectDrug.setAdapter(StatusAdapter);
+        selectDrug.setOnItemSelectedListener(this);
+
+        myDrug = String.valueOf(selectDrug.getSelectedItem());
     }
 
     private void selectRoom() {
@@ -145,7 +174,7 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
         cursorPidFound= db.getActiveRoom();
 
         if(cursorPidFound.getCount()==0){
-            Toast.makeText(AddCalculation.this, "No Datsa", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddCalculation.this, "No Data", Toast.LENGTH_LONG).show();
         }
         else {
 

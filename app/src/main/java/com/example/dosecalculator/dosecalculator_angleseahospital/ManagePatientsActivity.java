@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,10 +15,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import java.util.ArrayList;
-
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
+
+import java.util.ArrayList;
 
 
 public class ManagePatientsActivity extends AppCompatActivity {
@@ -178,20 +177,25 @@ public class ManagePatientsActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
             case R.id.action_add_room:
-                //get the categories cursor for the
+                //get the categories cursor for the rooms
                 Intent room = new Intent(ManagePatientsActivity.this, ManageRoomsActivity.class);
                 startActivity(room);
                 break;
             case R.id.action_nurse:
-                //get the categories cursor for the
+                //get the categories cursor for the nurses
                 Intent nurses = new Intent(ManagePatientsActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
-         /*   case R.id.action_drug:
-                //get the categories cursor for the
-                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+            case R.id.action_drug:
+                //get the categories cursor for the drugs
+                Intent drugs = new Intent(ManagePatientsActivity.this, ManageDrugsActivity.class);
                 startActivity(drugs);
-                break;*/
+                break;
+            case R.id.action_patients:
+                //get the categories cursor for the patients
+                Intent patients = new Intent(ManagePatientsActivity.this, ManagePatientsActivity.class);
+                startActivity(patients);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -74,7 +74,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 //drugName.setText(String.valueOf(drug.getDrugId()));
 
                 carryDrugId = String.valueOf(drug.getDrugId());
-                a = drug.getDrugName();
+                carryDrugName = drug.getDrugName();
                 carryDrugWeight = drug.getDrugWeight();
                 carryDrugVolume = drug.getDrugVolume();
                 carryMaxDosage = drug.getMaxDosage();
@@ -116,7 +116,7 @@ public class ManageDrugsActivity extends AppCompatActivity {
 
                 Bundle extras1 = new Bundle();
                 extras1.putString("CarryDrugId", carryDrugId);
-                extras1.putString("name", a);
+                extras1.putString("CarryDrugName", carryDrugName);
                 extras1.putString("weight", carryDrugWeight);
                 extras1.putString("volume", carryDrugVolume);
                 extras1.putString("maxDosage", carryMaxDosage);
@@ -166,6 +166,39 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_home:
+                //get the home
+                Intent home = new Intent(ManageDrugsActivity.this, MainActivity.class);
+                startActivity(home);
+                break;
+            case R.id.action_add_room:
+                //get the categories cursor for the rooms
+                Intent room = new Intent(ManageDrugsActivity.this, ManageRoomsActivity.class);
+                startActivity(room);
+                break;
+            case R.id.action_nurse:
+                //get the categories cursor for the nurses
+                Intent nurses = new Intent(ManageDrugsActivity.this, ManageNursesActivity.class);
+                startActivity(nurses);
+                break;
+            case R.id.action_drug:
+                //get the categories cursor for the drugs
+                Intent drugs = new Intent(ManageDrugsActivity.this, ManageDrugsActivity.class);
+                startActivity(drugs);
+                break;
+            case R.id.action_patients:
+                //get the categories cursor for the patients
+                Intent patients = new Intent(ManageDrugsActivity.this, ManagePatientsActivity.class);
+                startActivity(patients);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
    /* @Override

@@ -2,14 +2,12 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuInflater;
-import android.view.View;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,20 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
             case R.id.action_add_room:
-                //get the categories cursor for the
+                //get the categories cursor for the rooms
                 Intent room = new Intent(MainActivity.this, ManageRoomsActivity.class);
                 startActivity(room);
                 break;
             case R.id.action_nurse:
-                //get the categories cursor for the
+                //get the categories cursor for the nurses
                 Intent nurses = new Intent(MainActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
             case R.id.action_drug:
-                //get the categories cursor for the
+                //get the categories cursor for the drugs
                 Intent drugs = new Intent(MainActivity.this, ManageDrugsActivity.class);
                 startActivity(drugs);
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }

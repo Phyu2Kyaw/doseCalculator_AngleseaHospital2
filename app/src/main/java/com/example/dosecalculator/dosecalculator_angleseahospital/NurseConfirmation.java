@@ -1,15 +1,13 @@
 package com.example.dosecalculator.dosecalculator_angleseahospital;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NurseConfirmation extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -44,6 +41,7 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
     Cursor cursorNidFound;
 
     String pId;
+    String pName;
     String standingOrder;
     String roomId;
     String nurseId;
@@ -77,11 +75,12 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
         //to get passed string value
         Bundle extras = getIntent().getExtras();
         pId = extras.getString("carryPatientId");
+        pName = extras.getString("carryPatientName");
         standingOrder = extras.getString("carryStandingOrder");
         roomId = extras.getString("carryRoomId");
 
 
-        notification=new NotificationCompat.Builder(this);
+        notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
 
 
@@ -104,9 +103,10 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
             notification.setSmallIcon(R.drawable.update_icon);
         notification.setTicker("this is the ticker");
         notification.setWhen( (System.currentTimeMillis()
-                + (1 * 1000)));
-        notification.setContentTitle("Here is the title");
-        notification.setContentText("I m the body text");
+                + ((60 * 1000) * 15)));
+        notification.setContentTitle("Re-administer Medication");
+        notification.setContentText(roomId + pName);
+        notification.setSubText("Click to view details");
 
             Intent intent = new Intent(this, MainActivity.class);
 
@@ -213,13 +213,13 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
             public void onClick(View V){
 
                 db.getWritableDatabase();
-                ContentValues values=new ContentValues();
+                ContentValues values = new ContentValues();
                 roomStatus="Deactive";
                 db.updateRoomStatus(roomId,roomStatus);
 
                 db.insertCalculation("hi","hi","hi","hi",1,2,"hi");
 
-
+                startAlert();
             }
         });
 

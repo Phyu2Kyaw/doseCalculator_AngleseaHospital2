@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -184,20 +183,25 @@ public class ManageNursesActivity extends AppCompatActivity {
                 startActivity(home);
                 break;
             case R.id.action_add_room:
-                //get the categories cursor for the
+                //get the categories cursor for the rooms
                 Intent room = new Intent(ManageNursesActivity.this, ManageRoomsActivity.class);
                 startActivity(room);
                 break;
             case R.id.action_nurse:
-                //get the categories cursor for the
+                //get the categories cursor for the nurses
                 Intent nurses = new Intent(ManageNursesActivity.this, ManageNursesActivity.class);
                 startActivity(nurses);
                 break;
-         /*   case R.id.action_drug:
-                //get the categories cursor for the
-                Intent drugs = new Intent(RegisterPatient.this, ManageDrugsActivity.class);
+            case R.id.action_drug:
+                //get the categories cursor for the drugs
+                Intent drugs = new Intent(ManageNursesActivity.this, ManageDrugsActivity.class);
                 startActivity(drugs);
-                break;*/
+                break;
+            case R.id.action_patients:
+                //get the categories cursor for the patients
+                Intent patients = new Intent(ManageNursesActivity.this, ManagePatientsActivity.class);
+                startActivity(patients);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

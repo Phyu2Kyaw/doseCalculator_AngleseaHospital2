@@ -194,7 +194,7 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
 
                 pname=(TextView) findViewById(R.id.dis_pname);
                 pDob=(TextView) findViewById(R.id.disp_dob);
-                patientList=new ArrayList<>();
+                //patientList=new ArrayList<>();
                 cursorPidFound= db.findPid(pId.getText().toString());
 
                 pname.setText(cursorPidFound.getString(1));

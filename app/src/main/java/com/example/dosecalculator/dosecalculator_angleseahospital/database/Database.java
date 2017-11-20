@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 //import com.example.dosecalculator.dosecalculator_angleseahospital.database.Rooms.RoomsEntry;
 
 /**
@@ -15,7 +18,7 @@ import com.example.dosecalculator.dosecalculator_angleseahospital.Drugs;
  */
 
 public class Database extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "anglesea_hospital05.db";
+    public static final String DATABASE_NAME = "anglesea_hospital08.db";
     private static final int DATABASE_VERSION=1;
 
     public static final String TABLE_ROOM="room";
@@ -41,6 +44,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_standard_order="standard_order";
     public static final String COLUMN_calculation_result="result";
     public static final String COLUMN_status="status";
+    public static final String COLUMN_DATETIME="dateTime";
 
     public static final String TABLE_DRUGS = " drugs ";
     public static final String COLUMN_DRUG_ID = "_dId ";
@@ -49,7 +53,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_DRUG_VOLUME = "Drug_Volume";    // mL
     public static final String COLUMN_MAX_DOSAGE = "Max_Dosage";
     public static final String COLUMN_CALC_METHOD = "Calc_Method";    // calculation method - adult or pediatrics
-    public static final String COLUMN_TYPE_PATIENT = "Type_Patient";  // type of patient
+    //public static final String COLUMN_TYPE_PATIENT = "Type_Patient";  // type of patient
 
     public static final String TABLE_NURSE="nurse";
     //public static final String COLUMN_nurse_ID="_id";
@@ -114,11 +118,10 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL(" Create table " + TABLE_DRUGS + " ( " +
                 COLUMN_DRUG_ID + " Integer Primary Key Autoincrement, " +
                 COLUMN_DRUG_NAME + " text, " +
-                COLUMN_DRUG_WEIGHT + " text, " +
-                COLUMN_DRUG_VOLUME + " text, " +
+                COLUMN_DRUG_WEIGHT + " Integer, " +
+                COLUMN_DRUG_VOLUME + " Integer, " +
                 COLUMN_MAX_DOSAGE + " text, " +
-                COLUMN_CALC_METHOD + " text, " +
-                COLUMN_TYPE_PATIENT + " text " +
+                COLUMN_CALC_METHOD + " text " +
                " ); " );
         //addDrug();
 
@@ -129,9 +132,10 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_roomId + " text, " +
                 COLUMN_drugId + " text, " +
                 COLUMN_nurseId + " text, " +
-                COLUMN_standard_order + " text, " +
-                COLUMN_calculation_result + " text ," +
-                COLUMN_status + " text " +
+                COLUMN_standard_order + " Integer, " +
+                COLUMN_calculation_result + " Integer ," +
+                COLUMN_status + " text ," +
+                COLUMN_DATETIME + " text "+
                 " ); " );
     }
 
@@ -305,7 +309,6 @@ public class Database extends SQLiteOpenHelper {
                 values.put(COLUMN_DRUG_VOLUME, drug.getDrugVolume());
                 values.put(COLUMN_MAX_DOSAGE, drug.getMaxDosage());
                 values.put(COLUMN_CALC_METHOD, drug.getCalcMethod());
-                values.put(COLUMN_TYPE_PATIENT, drug.getTypePatient());
                 db.insert(TABLE_DRUGS, null, values);
             }
 
@@ -324,7 +327,7 @@ public class Database extends SQLiteOpenHelper {
           this.addDrugs(d6);
       }*/
 
-    public boolean insertNewDrug(String name, String weight, String volume, String mDosage, String cMethod, String patientType){
+    public boolean insertNewDrug(String name, String weight, String volume, String mDosage, String cMethod){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         //values.put(drug_ID, drugId);
@@ -333,9 +336,8 @@ public class Database extends SQLiteOpenHelper {
         values.put(COLUMN_DRUG_VOLUME, volume);
         values.put(COLUMN_MAX_DOSAGE, mDosage);
         values.put(COLUMN_CALC_METHOD, cMethod);
-        values.put(COLUMN_TYPE_PATIENT, patientType);
 
-        long result = db.update(TABLE_DRUGS, values,"Drug_Name=?",new String[] { name });
+        long result = db.insert(TABLE_DRUGS, null, values);
         if (result == -1)
             return  false;
         else
@@ -343,7 +345,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public boolean updateDrug(String name, String weight, String volume, String mDosage, String cMethod, String patientType){
+    public boolean updateDrug(String dId,String name, String weight, String volume, String mDosage,String cMethod){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues values = new ContentValues();
        // values.put(drug_ID, drugId);
@@ -352,9 +354,8 @@ public class Database extends SQLiteOpenHelper {
         values.put(COLUMN_DRUG_VOLUME, volume);
         values.put(COLUMN_MAX_DOSAGE, mDosage);
         values.put(COLUMN_CALC_METHOD, cMethod);
-        values.put(COLUMN_TYPE_PATIENT, patientType);
 
-        long result = db.update(TABLE_DRUGS, values," Drug_Name = ?",new String[] { name });
+        long result = db.update(TABLE_DRUGS, values," _dId = ?",new String[] { dId });
         if (result == -1)
             return  false;
         else
@@ -370,6 +371,9 @@ public class Database extends SQLiteOpenHelper {
         else
             return true ;
     }
+
+
+
 
     public Cursor getDrugData(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -438,6 +442,32 @@ public class Database extends SQLiteOpenHelper {
         else
             return true ;
 
+    }
+
+    //Patient
+    public boolean insertCalculation(String pId,String roomId, String drugId,String nurseId, Integer standingOrder, Integer result, String status){
+        SQLiteDatabase db= this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+
+
+        values.put(COLUMN_patientId,pId);
+        values.put(COLUMN_roomId,roomId);
+        values.put(COLUMN_drugId,drugId);
+        values.put(COLUMN_nurseId,nurseId);
+        values.put(COLUMN_standard_order,standingOrder);
+        values.put(COLUMN_calculation_result,result);
+        values.put(COLUMN_status,status);
+        values.put(COLUMN_DATETIME, dateFormat.format(date));
+
+        long myResult = db.insert(TABLE_calculator, null, values);
+
+        if (myResult == -1)
+            return  false;
+        else
+            return true ;
     }
 
 

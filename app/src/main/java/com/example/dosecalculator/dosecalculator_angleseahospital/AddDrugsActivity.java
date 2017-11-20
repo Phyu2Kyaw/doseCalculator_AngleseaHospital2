@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
-public class AddDrugsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddDrugsActivity extends AppCompatActivity {
 
     EditText drugName;
     public String calcMethodSelection;
@@ -22,10 +23,11 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
     EditText weight;
     EditText volume;
     EditText maxDosage;
+    CheckBox calMethod;
     Button myButton;
     Database db;
-    Spinner calcMethod;
-    Spinner typePatient;
+    //Spinner calcMethod;
+    //Spinner typePatient;
 
 
     @Override
@@ -39,15 +41,16 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
         weight = (EditText)findViewById(R.id.mg);
         volume = (EditText)findViewById(R.id.mL);
         maxDosage = (EditText)findViewById(R.id.txt_maxDosage);
-        calcMethod = (Spinner) findViewById(R.id.calcMethod);
-        typePatient = (Spinner) findViewById(R.id.typePatient);
+        calMethod=(CheckBox) findViewById(R.id.chk_cal_method);
+        //calcMethod = (Spinner) findViewById(R.id.calcMethod);
+        //typePatient = (Spinner) findViewById(R.id.typePatient);
         myButton=(Button)findViewById(R.id.btn_add_drug);
-        spinner();
-        spinner2();
+       // spinner();
+       // spinner2();
         addButtonClicked();
     }
 
-    private void spinner() {
+    /*private void spinner() {
         // Create an ArrayAdapter using the string array and a default spinner layout
 
         ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
@@ -55,13 +58,13 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
         // Specify the layout to use when the list of choices appears
         StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        typePatient.setAdapter(StatusAdapter);
-        typePatient.setOnItemSelectedListener(this);
+        *//*typePatient.setAdapter(StatusAdapter);
+        typePatient.setOnItemSelectedListener(this);*//*
 
         typePatientSelection = String.valueOf(typePatient.getSelectedItem());
-    }
+    }*/
 
-    private void spinner2() {
+   /* private void spinner2() {
         // Create an ArrayAdapter using the string array and a default spinner layout
 
         ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
@@ -73,9 +76,9 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
         calcMethod.setOnItemSelectedListener(this);
 
         calcMethodSelection = String.valueOf(calcMethod.getSelectedItem());
-    }
+    }*/
 
-    public void onItemSelected(AdapterView<?> parent, View view,
+/*    public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // myStatusSelection=parent.getItemAtPosition(pos).toString();
         //Rooms add_room=new Rooms();
@@ -83,14 +86,21 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
                 "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 
     public void addButtonClicked(){
         myButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
+
+                if(calMethod.isChecked()){
+                    calcMethodSelection="True";
+                }
+                else{
+                    calcMethodSelection="False";
+                }
                 boolean isInserted=db.insertNewDrug(drugName.getText().toString(),weight.getText().toString(),
-                        volume.getText().toString(), maxDosage.getText().toString(), calcMethodSelection, typePatientSelection );
+                        volume.getText().toString(), maxDosage.getText().toString(), calcMethodSelection);
                 if(isInserted==true)
                     Toast.makeText(AddDrugsActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 else
@@ -102,7 +112,7 @@ public class AddDrugsActivity extends AppCompatActivity implements AdapterView.O
     }
 
 
-    public void onNothingSelected(AdapterView<?> parent) {
+    /*public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
-    }
+    }*/
 }

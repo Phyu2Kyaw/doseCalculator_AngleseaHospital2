@@ -7,6 +7,31 @@
     tools:context="com.example.dosecalculator.dosecalculator_angleseahospital.NurseConfirmation">
 
     <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:text="Notify Me"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/chkbox_confirm" />
+
+    <Spinner
+        android:id="@+id/spn_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,9 +53,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/chkbox_confirm"
-        android:layout_marginStart="32dp" />
+        app:layout_constraintTop_toBottomOf="@+id/spn_time" />
 
     <Button
         android:id="@+id/btn_finish"
@@ -40,11 +65,12 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="Complete"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spn_calc_status" />
+        app:layout_constraintTop_toBottomOf="@+id/spn_calc_status"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Spinner
         android:id="@+id/spn_calc_status"
@@ -54,10 +80,11 @@
         android:layout_marginRight="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/Status"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp" />
+        android:layout_marginEnd="32dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <CheckBox
         android:id="@+id/chkbox_confirm"

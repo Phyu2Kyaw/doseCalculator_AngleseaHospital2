@@ -8,31 +8,34 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dosecalculator.dosecalculator_angleseahospital.database.Database;
 
-public class UpdateDrugActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class UpdateDrugActivity extends AppCompatActivity {
 
     EditText drugName;
-    public String calcMethodSelection;
+    public Boolean calcMethodSelection;
     public String typePatientSelection;
     EditText weight;
     EditText volume;
     EditText maxDosage;
     Button update;
     Database db;
-    Spinner calcMethod;
-    Spinner typePatient;
+    CheckBox calcMethod;
+    CheckBox chk_method;
 
     String myDrugName;
+    String a;
     String myDrugWeight;
     String myDrugVolume;
     String myMaxDosage;
     String myCalcMethod;
-    String myPatientType;
+    public String selectCalcMethod;
+    String drugId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,23 +43,23 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_update_drug);
 
         db = new Database(this);
-        drugName = (EditText)findViewById(R.id.txt_drug_name);
+        CheckBox calcMethod = (CheckBox) findViewById(R.id.chk_weight_dep);
+        drugName = (EditText)findViewById(R.id.txt_dname);
         drugName.setGravity(Gravity.TOP);
-        weight = (EditText)findViewById(R.id.mg);
-        volume = (EditText)findViewById(R.id.mL);
-        maxDosage = (EditText)findViewById(R.id.txt_maxDosage);
-        calcMethod = (Spinner) findViewById(R.id.calcMethod);
-        typePatient = (Spinner) findViewById(R.id.typePatient);
-        update =(Button)findViewById(R.id.btn_add_drug);
+        weight = (EditText)findViewById(R.id.txt_dWeight);
+        volume = (EditText)findViewById(R.id.txt_vol);
+        maxDosage = (EditText)findViewById(R.id.txt_dMax);
+        //final calcMethod = ((CheckBox) findViewById(R.id.chk_weight_dep));
+        update =(Button)findViewById(R.id.btn_update_button);
 
         //to get passed string value
         Bundle extras = getIntent().getExtras();
-        myDrugName = extras.getString("carryDrugName");
-        myDrugWeight = extras.getString("carryDrugWeight");
-        myDrugVolume = extras.getString("carryDrugVolume");
-        myMaxDosage = extras.getString("carryMaxDosage");
-        myCalcMethod = extras.getString("carryCalcMethod");
-        myPatientType = extras.getString("carryPatientType");
+        myDrugName = extras.getString("name");
+        myDrugWeight = extras.getString("weight");
+        myDrugVolume = extras.getString("volume");
+        myMaxDosage = extras.getString("maxDosage");
+        myCalcMethod = extras.getString("method");
+        drugId = extras.getString("CarryDrugId");
 
 
         drugName.setText(myDrugName);
@@ -64,46 +67,30 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
         volume.setText(myDrugVolume);
         maxDosage.setText(myMaxDosage);
 
-        spinner();
-        spinner2();
+
+
+        if(myCalcMethod.equals("True")){
+            calcMethod.setChecked(true);
+            myCalcMethod="True";
+        }
+        else if(myCalcMethod.equals("False")){
+            calcMethod.setChecked(false);
+            myCalcMethod="False";
+        }
+
+        //checkbox();
+
+
         updateButtonClicked();
     }
 
-    private void spinner() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
-
-        ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
-                R.array.type_patients, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        typePatient.setAdapter(StatusAdapter);
-        typePatient.setOnItemSelectedListener(this);
-
-        typePatientSelection = String.valueOf(typePatient.getSelectedItem());
-    }
-
-    private void spinner2() {
-        // Create an ArrayAdapter using the string array and a default spinner layout
-
-        ArrayAdapter<CharSequence> StatusAdapter = ArrayAdapter.createFromResource(this,
-                R.array.calc_method, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        StatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        calcMethod.setAdapter(StatusAdapter);
-        calcMethod.setOnItemSelectedListener(this);
-
-        calcMethodSelection = String.valueOf(calcMethod.getSelectedItem());
-    }
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // myStatusSelection=parent.getItemAtPosition(pos).toString();
-        //Rooms add_room=new Rooms();
-        Toast.makeText(parent.getContext(),
-                "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
-                Toast.LENGTH_SHORT).show();
+    private void checkbox() {
+        if (calcMethod.isChecked()){
+            a="True";
+        }
+        else{
+            a="False";
+        }
 
     }
 
@@ -111,8 +98,11 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
         update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View V){
-                boolean isInserted=db.updateDrug(drugName.getText().toString(),weight.getText().toString(),
-                        volume.getText().toString(), maxDosage.getText().toString(), calcMethodSelection, typePatientSelection );
+
+
+
+                boolean isInserted=db.updateDrug(drugId,drugName.getText().toString(),weight.getText().toString(),
+                        volume.getText().toString(), maxDosage.getText().toString(),myCalcMethod);
                 if(isInserted==true)
                     Toast.makeText(UpdateDrugActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
                 else
@@ -124,9 +114,6 @@ public class UpdateDrugActivity extends AppCompatActivity implements AdapterView
     }
 
 
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
 
 
 }

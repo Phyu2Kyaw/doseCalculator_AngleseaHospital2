@@ -40,7 +40,6 @@ public class DrugAdapter extends ArrayAdapter<Drugs>  {
             TextView volume = (TextView) convertView.findViewById(R.id.lbl_result_volume_mL);
             TextView maxDosage = (TextView) convertView.findViewById(R.id.lbl_result_max_Dosage);
             TextView calcMethod = (TextView) convertView.findViewById(R.id.lbl_result_calc_method);
-            TextView typePatient = (TextView) convertView.findViewById(R.id.lbl_result_type_patient);
 
             if(drugName != null){
                 drugName.setText((drug.getDrugName()));
@@ -57,9 +56,7 @@ public class DrugAdapter extends ArrayAdapter<Drugs>  {
             if(calcMethod != null){
                 calcMethod.setText((drug.getCalcMethod()));
             }
-            if(typePatient != null){
-                typePatient.setText((drug.getTypePatient()));
-            }
+
 
         }
         return convertView;

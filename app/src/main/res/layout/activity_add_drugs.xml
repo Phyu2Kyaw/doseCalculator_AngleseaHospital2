@@ -10,7 +10,7 @@
         android:id="@+id/drugName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="Drug Name"
@@ -21,11 +21,11 @@
 
     <EditText
         android:id="@+id/txt_drug_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
         android:layout_marginStart="13dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -34,22 +34,19 @@
         app:layout_constraintTop_toBottomOf="@+id/drugName"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        android:layout_marginTop="0dp"
         app:layout_constraintHorizontal_bias="0.0" />
 
     <EditText
         android:id="@+id/mg"
         android:layout_width="122dp"
         android:layout_height="41dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="16dp"
         android:ems="10"
         android:hint="mg"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/txt_drug_name" />
 
@@ -57,36 +54,33 @@
         android:id="@+id/mL"
         android:layout_width="122dp"
         android:layout_height="41dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
         android:hint="mL"
         android:inputType="textPersonName"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/txt_drug_name" />
 
     <Button
         android:id="@+id/btn_add_drug"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="57dp"
         android:layout_marginEnd="27dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
         android:layout_marginStart="27dp"
         android:onClick="addButtonClicked"
         android:text="Add Drug"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/typePatient" />
+        app:layout_constraintTop_toBottomOf="@+id/chk_cal_method" />
 
     <TextView
         android:id="@+id/maxDosage"
@@ -94,77 +88,29 @@
         android:layout_height="wrap_content"
         android:text="Max Dosage"
         android:textStyle="bold"
-        tools:layout_constraintBottom_creator="1"
         android:layout_marginStart="16dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="39dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/mg" />
 
     <EditText
         android:id="@+id/txt_maxDosage"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/maxDosage"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintRight_creator="1" />
-
-    <Spinner
-        android:id="@+id/typePatient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_typePatient"
+        android:layout_marginStart="32dp"
         app:layout_constraintHorizontal_bias="0.0" />
-
-    <TextView
-        android:id="@+id/label_typePatient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Type of Patient"
-        android:textStyle="bold"
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/calcMethod" />
-
-    <Spinner
-        android:id="@+id/calcMethod"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/calculationMethod" />
 
     <TextView
         android:id="@+id/calculationMethod"
@@ -172,12 +118,21 @@
         android:layout_height="wrap_content"
         android:text="Calculation Method"
         android:textStyle="bold"
-        tools:layout_constraintBottom_creator="1"
         android:layout_marginStart="16dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@+id/txt_maxDosage" />
+
+    <CheckBox
+        android:id="@+id/chk_cal_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="Weight Independent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/calculationMethod" />
 
 </android.support.constraint.ConstraintLayout>

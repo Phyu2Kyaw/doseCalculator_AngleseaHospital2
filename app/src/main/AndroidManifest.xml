@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
 
-
+        <uses-permission android:name="android.permission.VIBRATE" >
+        </uses-permission>
 
         <activity
             android:name=".MainActivity"
@@ -40,6 +41,11 @@
         <activity android:name=".ManageCalculation" />
         <activity android:name=".AddCalculation" />
         <activity android:name=".NurseConfirmation"/>
+
+        <receiver android:name=".MyBroadcastReceiver" >
+        </receiver>
+
+
     </application>
 
 </manifest>

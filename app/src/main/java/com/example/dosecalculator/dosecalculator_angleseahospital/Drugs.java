@@ -7,7 +7,7 @@ package com.example.dosecalculator.dosecalculator_angleseahospital;
 
 public class Drugs {
 
-    public String drug_ID;
+    public Integer drug_ID;
     public String drug_Name;
     public String drug_Weight;
     public String drug_Volume;
@@ -17,20 +17,19 @@ public class Drugs {
 
     public Drugs() { super();}
 
-    public Drugs (String dName, String dWeight, String dVolume, String mDosage, String cMethod, String patientType) {
+    public Drugs (Integer id, String dName, String dWeight, String dVolume, String mDosage, String cMethod) {
 
         super();
-
+        this.drug_ID=id;
         this.drug_Name = dName;
         this.drug_Weight = dWeight;
         this.drug_Volume = dVolume;
         this.max_Dosage = mDosage;
         this.calc_Method = cMethod;
-        this.type_Patient = patientType;
 
     }
 
-   public String getDrugId() { return drug_ID;    }
+   public Integer getDrugId() { return drug_ID;    }
 
     public String getDrugName() {
         return drug_Name;
@@ -54,7 +53,7 @@ public class Drugs {
         return type_Patient;
     }
 
-   public void setDrugId(String id) {  this.drug_ID = id;}
+   public void setDrugId(Integer id) {  this.drug_ID = id;}
 
     public void setDrugName(String drugName) {
         this.drug_Name = drugName;
@@ -74,8 +73,5 @@ public class Drugs {
         this.calc_Method = calMethod;
     }
 
-    public void setTypePatient(String typePatient) {
-        this.type_Patient = typePatient;
-    }
 }
 

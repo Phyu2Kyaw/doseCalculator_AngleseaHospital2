@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -26,14 +27,16 @@ public class ManageDrugsActivity extends AppCompatActivity {
     ArrayList<Drugs> DrugList;
     ListView my_lv;
     Drugs drug;
+    public String carryDrugId;
     public String carryDrugName;
+    public String a;
     public String carryDrugWeight;
     public String carryDrugVolume;
     public String carryMaxDosage;
     public String carryCalcMethod;
-    public String carryTypePatient;
+
     EditText drugName;
-    EditText typePatient;
+    String drugId;
 
     FloatingActionButton add;
     FloatingActionButton update;
@@ -67,10 +70,15 @@ public class ManageDrugsActivity extends AppCompatActivity {
                 drug = DrugList.get(position);
                 drugName =(EditText)findViewById(R.id.txt_drug_name);
 
-                drugName.setText((drug.getDrugName()));
-                typePatient.setText((drug.getTypePatient()));
-                carryDrugName = drug.getDrugName();
-                carryTypePatient= drug.getTypePatient();
+                drugName.setText(drug.getCalcMethod());
+                //drugName.setText(String.valueOf(drug.getDrugId()));
+
+                carryDrugId = String.valueOf(drug.getDrugId());
+                a = drug.getDrugName();
+                carryDrugWeight = drug.getDrugWeight();
+                carryDrugVolume = drug.getDrugVolume();
+                carryMaxDosage = drug.getMaxDosage();
+                carryCalcMethod = drug.getCalcMethod();
             }}
         );
 
@@ -82,14 +90,15 @@ public class ManageDrugsActivity extends AppCompatActivity {
         DrugList = new ArrayList<>();
         myCursor = db.getDrugData();
 
+
         if(myCursor.getCount()==0){
             Toast.makeText(ManageDrugsActivity.this, "No Drugs are Listed", Toast.LENGTH_LONG).show();
         }
         else{
 
             while(myCursor.moveToNext()){
-                drug = new Drugs(myCursor.getString(0),myCursor.getString(1),myCursor.getString(2),
-                        myCursor.getString(3),myCursor.getString(4),myCursor.getString(5));
+                drug = new Drugs(myCursor.getInt(0),myCursor.getString(1),myCursor.getString(2),myCursor.getString(3),
+                        myCursor.getString(4),myCursor.getString(5));
                 DrugList.add(drug);
                DrugAdapter myAdapter = new DrugAdapter(this, R.layout.activity_drug_adapter, DrugList);
                 lv_drugs.setAdapter(myAdapter);
@@ -105,14 +114,14 @@ public class ManageDrugsActivity extends AppCompatActivity {
             public void onClick(View V){
                 Intent intent = new Intent(ManageDrugsActivity.this,UpdateDrugActivity.class);
 
-                Bundle extras = new Bundle();
-                extras.putString("CarryDrugName", carryDrugName);
-                extras.putString("CarryDrugWeight", carryDrugWeight);
-                extras.putString("CarryDrugVolume", carryDrugVolume);
-                extras.putString("CarryMaxDosage", carryMaxDosage);
-                extras.putString("CarryCalcMethod", carryCalcMethod);
-                extras.putString("CarryDrugWeight", carryTypePatient);
-                intent.putExtras(extras);
+                Bundle extras1 = new Bundle();
+                extras1.putString("CarryDrugId", carryDrugId);
+                extras1.putString("name", a);
+                extras1.putString("weight", carryDrugWeight);
+                extras1.putString("volume", carryDrugVolume);
+                extras1.putString("maxDosage", carryMaxDosage);
+                extras1.putString("method", carryCalcMethod);
+                intent.putExtras(extras1);
 
                 startActivity(intent);
             }

@@ -127,7 +127,7 @@ public class AddCalculation extends AppCompatActivity implements AdapterView.OnI
                                         extras.putString("carryPatientId", carryPatientId);
                                         extras.putString("carryStandingOrder", carryStandingOrder);
                                         extras.putString("carryRoomId", carryRoomId);
-                                        extras.putString("carryDrugId", carryDrugName);
+                                        extras.putString("carryDrugName", carryDrugName);
                                         intent.putExtras(extras);
 
                                         startActivity(intent);

@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="fifthteenMinutes">15 Minutes</string>
+    <string name="thirtyMinutes">30 Minutes</string>
+    <string name="oneHour">1 Hour</string>
+    <string name="twoHours">2 Hours</string>
+    <string name="threeHours">3 Hours</string>
+    <string name="fourHours">4 Hours</string>
+    <string name="fiveHours">5 Hours</string>
+    <string name="sixHours">6 Hours</string>
+    <string name="sevenHours">7 Hours</string>
+    <string name="eightHours">8 Hours</string>
+
      <string-array name="time_status">
-        <item>15 Minutes</item>
-        <item>30 Minutes</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
+        <item>@string/fifthteenMinutes</item>
+        <item>@string/thirtyMinutes</item>
+        <item>@string/oneHour</item>
+        <item>@string/twoHours</item>
+        <item>@string/threeHours</item>
+        <item>@string/fourHours</item>
+        <item>@string/fiveHours</item>
+        <item>@string/sixHours</item>
+        <item>@string/sevenHours</item>
+        <item>@string/eightHours</item>
     </string-array>
 </resources>

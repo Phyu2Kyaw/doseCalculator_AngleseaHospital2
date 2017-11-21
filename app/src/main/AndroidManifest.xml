@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Notification" >
-
-        </activity>
         <activity android:name=".ManageDrugsActivity" />
         <activity android:name=".ManageNursesActivity" />
         <activity android:name=".ManageRoomsActivity" />

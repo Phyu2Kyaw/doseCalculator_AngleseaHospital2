@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -47,10 +48,10 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
     String nurseId;
     String myStatusSelection;
     String myTimeSelection;
-    Double fiften_mins;
-    Integer thirty_mins;
-    Integer timeInSecond;
     String roomStatus;
+    Resources res = getResources();
+    String[] notifyTime = res.getStringArray(R.array.time_status);
+    int notiTime;
 
     NotificationCompat.Builder notification;
     public static final int uniqueID=4288;
@@ -79,80 +80,34 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
         standingOrder = extras.getString("carryStandingOrder");
         roomId = extras.getString("carryRoomId");
 
-
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
 
-
-
         displayNurseName();
-      spinnerStatus();
+        spinnerStatus();
         spinnerTime();
-       completeCalculation();
-        //startAlert();
+        completeCalculation();
     }
 
-    private void startAlert() {
 
+    private void notification() {
 
-        if (myTimeSelection == "15 Minutes") {
-            fiften_mins = 0.25;
-
-            Double i = fiften_mins;
-
-            notification.setSmallIcon(R.drawable.update_icon);
-        notification.setTicker("this is the ticker");
-        notification.setWhen( (System.currentTimeMillis()
-                + ((60 * 1000) * 15)));
+        notification.setSmallIcon(R.drawable.update_icon);
+        notification.setTicker("This is the ticker");
+        notification.setWhen((System.currentTimeMillis()
+                + ((60 * 1000) * notiTime)));
         notification.setContentTitle("Re-administer Medication");
         notification.setContentText(roomId + pName);
         notification.setSubText("Click to view details");
 
-            Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
-            PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-            notification.setContentIntent(pendingIntent);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
 
-
-            //Builds notification and issues it
-            NotificationManager nm=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            nm.notify(uniqueID,notification.build());
-
-
-
-            /*PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, (long) (System.currentTimeMillis()
-                                + (i * 1000)), pendingIntent);
-            Toast.makeText(this, "Alarm set in " + i + " seconds",
-                    Toast.LENGTH_LONG).show();*/
-        }
-
-        /*else if (myTimeSelection == "30 Minutes") {
-            thirty_mins = 1;
-
-            int i = Integer.parseInt(myTimeSelection);
-            Intent intent = new Intent(this, MyBroadcastReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                    + (i * 1000), pendingIntent);
-            Toast.makeText(this, "Alarm set in " + i + " seconds",
-                    Toast.LENGTH_LONG).show();
-        }
-
-        else {
-            timeInSecond = Integer.valueOf(myTimeSelection);
-            timeInSecond*=60;
-            int i = Integer.parseInt(myTimeSelection);
-            Intent intent = new Intent(this, MyBroadcastReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                    + (i * 1000), pendingIntent);
-            Toast.makeText(this, "Alarm set in " + i + " seconds",
-                    Toast.LENGTH_LONG).show();
-        }*/
+        //Builds notification and issues it
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueID, notification.build());
     }
 
     private void spinnerTime() {
@@ -163,9 +118,9 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
         time.setAdapter(StatusAdapter);
         time.setOnItemSelectedListener(this);
 
-        myTimeSelection=String.valueOf(time.getSelectedItem());
-    }
+        myTimeSelection = String.valueOf(time.getSelectedItem());
 
+    }
 
     private void spinnerStatus() {
 
@@ -176,7 +131,7 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
         status.setAdapter(StatusAdapter);
         status.setOnItemSelectedListener(this);
 
-        myStatusSelection=String.valueOf(status.getSelectedItem());
+        myStatusSelection= String.valueOf(status.getSelectedItem());
     }
 
     @Override
@@ -184,6 +139,52 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
         Toast.makeText(parent.getContext(),
                 "OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
+
+        Spinner spinner = (Spinner) parent;
+        if (spinner.getId() == R.id.spn_time) {
+            switch (pos) {
+                case 0:
+                    notification();
+                    notiTime = 15;
+                    break;
+                case 1:
+                    notification();
+                    notiTime = 30;
+                    break;
+                case 2:
+                    notification();
+                    notiTime = 60;
+                    break;
+                case 3:
+                    notification();
+                    notiTime = 120;
+                    break;
+                case 4:
+                    notification();
+                    notiTime = 180;
+                    break;
+                case 5:
+                    notification();
+                    notiTime = 240;
+                    break;
+                case 6:
+                    notification();
+                    notiTime = 300;
+                    break;
+                case 7:
+                    notification();
+                    notiTime = 360;
+                    break;
+                case 8:
+                    notification();
+                    notiTime = 420;
+                    break;
+                case 9:
+                    notification();
+                    notiTime = 480;
+                    break;
+            }
+        }
     }
 
     @Override
@@ -218,11 +219,8 @@ public class NurseConfirmation extends AppCompatActivity implements AdapterView.
                 db.updateRoomStatus(roomId,roomStatus);
 
                 db.insertCalculation("hi","hi","hi","hi",1,2,"hi");
-
-                startAlert();
             }
         });
-
     }
 }
 
